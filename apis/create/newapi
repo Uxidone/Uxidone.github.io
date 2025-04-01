@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .output {
+            margin-top: 20px;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Create a New API</h2>
+        <p>Enter details below to generate a basic API structure.</p>
+
+        <input type="text" id="apiName" placeholder="API Name (e.g., user-auth)">
+        <textarea id="apiDescription" placeholder="API Description"></textarea>
+        <button onclick="generateAPI()">Generate API</button>
+
+        <div class="output" id="apiOutput"></div>
+    </div>
+
+    <script>
+        function generateAPI() {
+            let apiName = document.getElementById("apiName").value.trim();
+            let apiDescription = document.getElementById("apiDescription").value.trim();
+
+            if (apiName === "" || apiDescription === "") {
+                alert("Please enter API name and description.");
+                return;
+            }
+
+            let apiStructure = `
+{
+    "api_name": "${apiName}",
+    "description": "${apiDescription}",
+    "version": "1.0",
+    "endpoints": [
+        {
+            "method": "GET",
+            "url": "/${apiName}",
+            "description": "Fetch data from the ${apiName} API"
+        }
+    ]
+}`;
+
+            document.getElementById("apiOutput").innerText = apiStructure;
+        }
+    </script>
+
+</body>
+</html>
