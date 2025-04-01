@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Page</title>
+    <title>Downloads</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             margin-top: 50px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .download-section {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .download-button {
             padding: 15px 25px;
@@ -19,29 +30,74 @@
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
+            display: inline-block;
+            margin: 10px;
         }
         .download-button:hover {
             background-color: #45a049;
         }
-        h1 {
-            color: #333;
+        .coming-soon {
+            padding: 15px 25px;
+            background-color: #f39c12;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: not-allowed;
         }
-        p {
-            color: #555;
+        .download-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .download-item {
+            margin: 15px;
+        }
+        .download-item a {
+            display: block;
+            padding: 15px;
+            text-decoration: none;
+            background-color: #2196F3;
+            color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .download-item a:hover {
+            background-color: #1976D2;
         }
     </style>
 </head>
 <body>
 
-    <h1>Download the Latest Version</h1>
-    <p>Click the button below to download the repository or file:</p>
+    <h1>All Downloads</h1>
+    <p>Here are the available downloads for various projects and files. Some items are coming soon!</p>
 
-    <!-- GitHub Repository Download Link -->
-    <a href="https://github.com/Uxidone/K-3JKD-V00EUS/archive/refs/heads/main.zip" class="download-button" download>
-        Download Now
-    </a>
+    <div class="download-list">
+        <div class="download-item">
+            <a href="https://github.com/Uxidone/K-3JKD-V00EUS/archive/refs/heads/main.zip" class="download-button" download>
+                Download K-3JKD-V00EUS (ZIP)
+            </a>
+        </div>
+        <div class="download-item">
+            <a href="https://github.com/Uxidone/SomeOtherProject/archive/refs/heads/main.zip" class="download-button" download>
+                Download SomeOtherProject (ZIP)
+            </a>
+        </div>
+        <div class="download-item">
+            <button class="coming-soon" disabled>
+                Coming Soon: YourFile (EXE)
+            </button>
+        </div>
+        <div class="download-item">
+            <button class="coming-soon" disabled>
+                Coming Soon: AnotherFile (ZIP)
+            </button>
+        </div>
+        <!-- Add more items as needed -->
+    </div>
 
-    <p>If the download doesn't start automatically, <a href="https://github.com/Uxidone/K-3JKD-V00EUS/archive/refs/heads/main.zip">click here</a> to download the ZIP file directly.</p>
+    <p>If you have any issues or questions, please <a href="https://yourcontactpage.com">contact us</a>.</p>
 
 </body>
 </html>
