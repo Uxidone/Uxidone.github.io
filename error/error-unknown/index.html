@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: #2c3e50;
+            background: #1c1c1c;
             color: #ecf0f1;
             text-align: center;
             padding: 50px;
@@ -16,41 +16,45 @@
             background-size: cover;
         }
         h1 {
-            font-size: 80px;
-            color: #e74c3c;
-            text-shadow: 5px 5px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.9);
+            font-size: 90px;
+            color: #c0392b;
+            text-shadow: 5px 5px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.9);
             margin-bottom: 20px;
+            animation: pulse 1.5s infinite alternate;
         }
         p {
-            font-size: 24px;
+            font-size: 28px;
             margin: 20px 0;
             color: #ecf0f1;
-            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.8);
+            animation: flicker 1.5s infinite alternate;
         }
         .button {
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 20px 40px;
+            font-size: 20px;
             color: #fff;
             background-color: #c0392b;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             text-decoration: none;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
             transition: all 0.3s ease;
+            display: inline-block;
         }
         .button:hover {
             background-color: #922b21;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
-            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+            transform: scale(1.2);
         }
         .container {
             display: inline-block;
             max-width: 600px;
             background: rgba(0, 0, 0, 0.7);
-            padding: 30px;
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 1);
+            transform: rotate(3deg);
         }
         .container h1,
         .container p {
@@ -58,7 +62,26 @@
         }
         @keyframes flicker {
             0% { opacity: 1; }
-            50% { opacity: 0.5; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { text-shadow: 5px 5px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.9); }
+            50% { text-shadow: 10px 10px 100px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.8); }
+            100% { text-shadow: 5px 5px 50px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.9); }
+        }
+
+        .text-line {
+            font-size: 20px;
+            color: #bdc3c7;
+            margin: 15px 0;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+            animation: textFlicker 1.5s infinite alternate;
+        }
+        
+        @keyframes textFlicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.2; }
             100% { opacity: 1; }
         }
     </style>
@@ -66,7 +89,15 @@
 <body>
     <div class="container">
         <h1>UNKNOWN ERROR</h1>
-        <p>An unexpected error has occurred. Please try again later.</p>
+        <p>An unexpected error has occurred. You may not be able to escape...</p>
+
+        <div class="text-line">System malfunction detected...</div>
+        <div class="text-line">Attempting to restore functionality...</div>
+        <div class="text-line">Unable to connect to server...</div>
+        <div class="text-line">Unidentified entity found in the system...</div>
+        <div class="text-line">Corruption detected. Warning: Unrecoverable error...</div>
+        <div class="text-line">Cannot connect to APIs...</div>
+        
         <a href="/home" class="button">Return to Home</a>
     </div>
 </body>
