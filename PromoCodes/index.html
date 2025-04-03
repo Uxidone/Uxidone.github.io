@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promo Codes</title>
-    <script>
-        async function checkGitHubUser() {
-            const response = await fetch('https://api.github.com/users/Uxidone');
-            if (response.status === 200) {
-                document.getElementById("paymentButton").style.display = "block";
-            } else {
-                alert("Access Denied: You must be @Uxidone on GitHub to access this page.");
-            }
-        }
-    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,7 +20,6 @@
             margin: auto;
         }
         .button {
-            display: none;
             padding: 10px 20px;
             font-size: 1em;
             color: white;
@@ -45,11 +34,11 @@
         }
     </style>
 </head>
-<body onload="checkGitHubUser()">
+<body>
     <div class="container">
         <h1>Promo Codes</h1>
         <p>Welcome to the promo codes section. Exclusive access required.</p>
-        <a id="paymentButton" href="/PromoCodes/paymentstab" class="button">Go to Payment Tab</a>
+        <a href="/PromoCodes/paymentstab" class="button">Go to Payment Tab</a>
     </div>
 </body>
 </html>
