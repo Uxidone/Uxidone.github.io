@@ -1,1 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Created Uxidone Site</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #1a73e8;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .result a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    .result a:hover {
+      text-decoration: underline;
+    }
+
+    .back-btn {
+      background-color: #1a73e8;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .back-btn:hover {
+      background-color: #135abf;
+    }
+  </style>
+</head>
+<body>
+  <h1>Created Uxidone Site</h1>
+  <div class="container">
+    <div id="siteInfo" class="result"></div>
+    <button class="back-btn" onclick="window.history.back()">Go Back</button>
+  </div>
+
+  <script>
+    window.onload = function() {
+      // Get query parameters from the URL
+      const params = new URLSearchParams(window.location.search);
+      const randomString = params.get('randomString');
+      const language = params.get('language');
+      const description = params.get('description');
+
+      // Display the generated info
+      const siteInfoDiv = document.getElementById('siteInfo');
+      siteInfoDiv.innerHTML = `
+        <p><strong>Generated Site URL:</strong> https://uxidone.github.io/uxidonesites/created?${randomString}</p>
+        <p><strong>Language:</strong> ${getLanguageName(language)}</p>
+        <p><strong>Description:</strong> ${description || 'No description provided.'}</p>
+      `;
+    };
+
+    function getLanguageName(languageCode) {
+      switch (languageCode) {
+        case "en":
+          return "English";
+        case "lv":
+          return "Latvian";
+        case "ru":
+          return "Russian";
+        default:
+          return "Unknown";
+      }
+    }
+  </script>
+</body>
+</html>
 
