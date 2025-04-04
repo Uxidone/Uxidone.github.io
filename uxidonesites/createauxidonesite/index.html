@@ -1,1 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Uxidone Site</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+    }
+    
+    h1 {
+      color: #1a73e8;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .button {
+      background-color: #1a73e8;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .button:hover {
+      background-color: #135abf;
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Create New Uxidone Site</h1>
+  <div class="container">
+    <p>Click the button below to generate a new unique URL for your site.</p>
+    <button class="button" onclick="generateURL()">Generate URL</button>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    function generateURL() {
+      // Generate a random string (letters and numbers) for the URL
+      const randomString = Math.random().toString(36).substring(2, 12); // Length of 10 characters
+      const newURL = `https://uxidone.github.io/uxidonesites/createuxidonesites/create?${randomString}`;
+
+      // Display the generated URL
+      document.getElementById('result').innerHTML = `Your generated URL: <a href="${newURL}" target="_blank">${newURL}</a>`;
+    }
+  </script>
+</body>
+</html>
 
