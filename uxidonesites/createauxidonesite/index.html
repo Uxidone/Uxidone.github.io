@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Uxidone Site</title>
+  <title>Create New Uxidone Site</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -95,7 +95,7 @@
     function generateURL() {
       // Generate a random string (letters and numbers) for the URL
       const randomString = Math.random().toString(36).substring(2, 12); // Length of 10 characters
-      const newURL = `https://uxidone.github.io/uxidonesites/created/${randomString}`;
+      const newURL = `https://uxidone.github.io/uxidonesites/createuxidonesites/create?${randomString}`;
 
       // Get selected language and description
       const selectedLanguage = document.getElementById("language").value;
