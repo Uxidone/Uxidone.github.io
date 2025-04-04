@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Access Restricted</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff3f3;
+      color: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      color: #e74c3c;
+    }
+    p {
+      font-size: 18px;
+      max-width: 600px;
+    }
+    .location {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚠️ Access Restricted</h1>
+  <p>
+    We're sorry, but our service is currently not available in your region due to restrictions.
+  </p>
+  <p class="location" id="locationDisplay">Checking your location...</p>
+
+  <script>
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        const country = data.country_name;
+        const code = data.country;
+
+        document.getElementById('locationDisplay').textContent =
+          `Detected location: ${country} (${code})`;
+
+        const blocked = ['IL', 'PS']; // IL = Israel, PS = Palestine
+
+        if (!blocked.includes(code)) {
+          // Not a restricted country, redirect them
+          window.location.href = "/";
+        }
+      })
+      .catch(() => {
+        document.getElementById('locationDisplay').textContent = 
+          "We couldn’t determine your location.";
+      });
+  </script>
+</body>
+</html>
