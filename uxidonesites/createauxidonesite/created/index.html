@@ -72,10 +72,16 @@
       const language = params.get('language');
       const description = params.get('description');
 
+      // If parameters are missing, show an error message
+      if (!randomString || !language) {
+        document.getElementById('siteInfo').innerHTML = '<p>Error: Missing information!</p>';
+        return;
+      }
+
       // Display the generated info
       const siteInfoDiv = document.getElementById('siteInfo');
       siteInfoDiv.innerHTML = `
-        <p><strong>Generated Site URL:</strong> https://uxidone.github.io/uxidonesites/created?${randomString}</p>
+        <p><strong>Generated Site URL:</strong> <a href="https://uxidone.github.io/uxidonesites/created?randomString=${randomString}" target="_blank">https://uxidone.github.io/uxidonesites/created?randomString=${randomString}</a></p>
         <p><strong>Language:</strong> ${getLanguageName(language)}</p>
         <p><strong>Description:</strong> ${description || 'No description provided.'}</p>
       `;
@@ -96,4 +102,3 @@
   </script>
 </body>
 </html>
-
