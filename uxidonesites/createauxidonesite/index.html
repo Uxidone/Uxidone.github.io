@@ -46,12 +46,47 @@
       font-size: 1.1rem;
       font-weight: bold;
     }
+
+    .result a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    .result a:hover {
+      text-decoration: underline;
+    }
+
+    label {
+      margin-top: 1rem;
+    }
+
+    select, textarea {
+      font-size: 1rem;
+      padding: 10px;
+      width: 100%;
+      max-width: 500px;
+      margin-top: 0.5rem;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
   </style>
 </head>
 <body>
   <h1>Create New Uxidone Site</h1>
   <div class="container">
-    <p>Click the button below to generate a new unique URL for your site.</p>
+    <label for="language">Select Language:</label>
+    <select id="language">
+      <option value="en">English</option>
+      <option value="lv">Latvian</option>
+      <option value="ru">Russian</option>
+    </select>
+
+    <label for="description">Enter Site Description:</label>
+    <textarea id="description" placeholder="Enter your site description..."></textarea>
+
     <button class="button" onclick="generateURL()">Generate URL</button>
     <div id="result" class="result"></div>
   </div>
@@ -60,12 +95,33 @@
     function generateURL() {
       // Generate a random string (letters and numbers) for the URL
       const randomString = Math.random().toString(36).substring(2, 12); // Length of 10 characters
-      const newURL = `https://uxidone.github.io/uxidonesites/createuxidonesites/create?${randomString}`;
+      const newURL = `https://uxidone.github.io/uxidonesites/created/${randomString}`;
 
-      // Display the generated URL
-      document.getElementById('result').innerHTML = `Your generated URL: <a href="${newURL}" target="_blank">${newURL}</a>`;
+      // Get selected language and description
+      const selectedLanguage = document.getElementById("language").value;
+      const description = document.getElementById("description").value || "No description provided.";
+
+      // Display the generated URL along with the description and selected language
+      document.getElementById('result').innerHTML = `
+        <p>Your generated URL: <a href="${newURL}" target="_blank">${newURL}</a></p>
+        <p><strong>Description:</strong> ${description}</p>
+        <p><strong>Selected Language:</strong> ${getLanguageName(selectedLanguage)}</p>
+        <button class="button" onclick="generateURL()">Regenerate Site</button>
+      `;
+    }
+
+    function getLanguageName(languageCode) {
+      switch (languageCode) {
+        case "en":
+          return "English";
+        case "lv":
+          return "Latvian";
+        case "ru":
+          return "Russian";
+        default:
+          return "Unknown";
+      }
     }
   </script>
 </body>
 </html>
-
