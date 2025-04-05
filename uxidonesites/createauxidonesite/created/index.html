@@ -2,103 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Created Uxidone Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create New Uxidone Site</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
-      margin: 0;
-      padding: 2rem;
-    }
-
-    h1 {
-      color: #1a73e8;
+      font-family: Arial, sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
       text-align: center;
-      margin-bottom: 2rem;
+      padding: 50px;
     }
-
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+    h1 {
+      color: #58a6ff;
     }
-
-    .result {
-      margin-top: 2rem;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-
-    .result a {
-      color: #1a73e8;
-      text-decoration: none;
-    }
-
-    .result a:hover {
-      text-decoration: underline;
-    }
-
-    .back-btn {
-      background-color: #1a73e8;
+    button {
+      background-color: #238636;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 5px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 1.2rem;
-      margin-top: 1rem;
     }
-
-    .back-btn:hover {
-      background-color: #135abf;
+    button:hover {
+      background-color: #2ea043;
+    }
+    .result {
+      margin-top: 30px;
+      padding: 15px;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      background-color: #161b22;
+    }
+    a {
+      color: #58a6ff;
+      word-break: break-word;
     }
   </style>
 </head>
 <body>
-  <h1>Created Uxidone Site</h1>
-  <div class="container">
-    <div id="siteInfo" class="result"></div>
-    <button class="back-btn" onclick="window.history.back()">Go Back</button>
+
+  <h1>Create New Uxidone Site</h1>
+  <p>Click the button below to generate your new site.</p>
+
+  <button onclick="generateSite()">Generate Uxidone Site</button>
+
+  <div class="result" id="result" style="display:none;">
+    <h2>Your Site Info:</h2>
+    <p><strong>Language:</strong> <span id="langOutput"></span></p>
+    <p><strong>Description:</strong> <span id="descOutput"></span></p>
+    <p>Your Site will be created at:</p>
+    <p id="siteURL"></p>
+    <button onclick="alert('Site creation request sent to Admin!')">Request Site Creation</button>
   </div>
 
-  <script>
-    window.onload = function() {
-      // Get query parameters from the URL
-      const params = new URLSearchParams(window.location.search);
-      const randomString = params.get('randomString');
-      const language = params.get('language');
-      const description = params.get('description');
+<script>
+  function generateSite() {
+    const randomID = Math.random().toString(36).substring(2, 12);
+    const lang = prompt("Enter your site language (English / Russian / Latvian):");
+    const desc = prompt("Enter your site description:");
 
-      // If parameters are missing, show an error message
-      if (!randomString || !language) {
-        document.getElementById('siteInfo').innerHTML = '<p>Error: Missing information!</p>';
-        return;
-      }
+    document.getElementById('langOutput').innerText = lang;
+    document.getElementById('descOutput').innerText = desc;
+    document.getElementById('siteURL').innerHTML = `
+      <a href="/created/sites/${randomID}/index.html" target="_blank">
+        https://uxidone.github.io/created/sites/${randomID}/index.html
+      </a>`;
 
-      // Display the generated info
-      const siteInfoDiv = document.getElementById('siteInfo');
-      siteInfoDiv.innerHTML = `
-        <p><strong>Generated Site URL:</strong> <a href="https://uxidone.github.io/uxidonesites/created?randomString=${randomString}" target="_blank">https://uxidone.github.io/uxidonesites/created?randomString=${randomString}</a></p>
-        <p><strong>Language:</strong> ${getLanguageName(language)}</p>
-        <p><strong>Description:</strong> ${description || 'No description provided.'}</p>
-      `;
-    };
+    document.getElementById('result').style.display = 'block';
+  }
+</script>
 
-    function getLanguageName(languageCode) {
-      switch (languageCode) {
-        case "en":
-          return "English";
-        case "lv":
-          return "Latvian";
-        case "ru":
-          return "Russian";
-        default:
-          return "Unknown";
-      }
-    }
-  </script>
 </body>
 </html>
