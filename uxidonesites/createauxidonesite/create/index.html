@@ -1,1 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a New Uxidone Site</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #58a6ff;
+    }
+    input, textarea {
+      width: 80%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #30363d;
+      background-color: #161b22;
+      color: #c9d1d9;
+    }
+    button {
+      background-color: #238636;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2ea043;
+    }
+    .result {
+      margin-top: 30px;
+      padding: 15px;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      background-color: #161b22;
+    }
+    a {
+      color: #58a6ff;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Create Your Uxidone Site</h1>
+  <p>Fill out the form below to create your new site:</p>
+
+  <form id="createForm">
+    <input type="text" id="siteLang" placeholder="Enter Site Language (e.g., English)" required><br>
+    <textarea id="siteDesc" placeholder="Enter a short description for your site" required></textarea><br>
+    <button type="button" onclick="createSite()">Create Site</button>
+  </form>
+
+  <div class="result" id="result" style="display:none;">
+    <h2>Site Created!</h2>
+    <p>Here is your site ID:</p>
+    <p><strong id="siteID"></strong></p>
+    <p>Your site URL will be:</p>
+    <p><a id="siteURL" href="#" target="_blank">Loading...</a></p>
+  </div>
+
+<script>
+  async function createSite() {
+    // Get form input values
+    const lang = document.getElementById('siteLang').value;
+    const desc = document.getElementById('siteDesc').value;
+
+    // Generate a random ID for the new site
+    const randomID = Math.random().toString(36).substring(2, 12);
+
+    // Prepare the data to be sent to the backend API
+    const siteData = {
+      id: randomID,
+      lang: lang,
+      desc: desc
+    };
+
+    try {
+      // Make the API call to the backend to create the site
+      const response = await fetch('https://api-uxidone.github.io/apis/sitecreation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(siteData),
+      });
+
+      const result = await response.json();
+      
+      // If the site creation was successful, show the generated URL
+      if (result.success) {
+        const siteURL = `https://uxidone.github.io/uxidonesites/createauxidonesite/created/uxidonesites?id=${randomID}`;
+
+        document.getElementById('siteID').innerText = randomID;
+        document.getElementById('siteURL').innerText = siteURL;
+        document.getElementById('siteURL').setAttribute('href', siteURL);
+
+        // Hide the form and show the result
+        document.getElementById('createForm').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+      } else {
+        alert('Site creation failed. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('There was an error creating your site. Please try again later.');
+    }
+  }
+</script>
+
+</body>
+</html>
 
