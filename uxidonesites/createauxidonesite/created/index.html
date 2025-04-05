@@ -51,9 +51,9 @@
     <h2>Your Site Info:</h2>
     <p><strong>Language:</strong> <span id="langOutput"></span></p>
     <p><strong>Description:</strong> <span id="descOutput"></span></p>
-    <p>Your Site will be created at:</p>
+    <p>Your Site URL:</p>
     <p id="siteURL"></p>
-    <button onclick="alert('Site creation request sent to Admin!')">Request Site Creation</button>
+    <button onclick="alert('Request sent! Admin will create the site manually.')">Request Site Creation</button>
   </div>
 
 <script>
@@ -62,12 +62,11 @@
     const lang = prompt("Enter your site language (English / Russian / Latvian):");
     const desc = prompt("Enter your site description:");
 
+    const siteURL = `https://uxidone.github.io/uxidonesites/created/sites/${randomID}/index.html`;
+
     document.getElementById('langOutput').innerText = lang;
     document.getElementById('descOutput').innerText = desc;
-    document.getElementById('siteURL').innerHTML = `
-      <a href="/created/sites/${randomID}/index.html" target="_blank">
-        https://uxidone.github.io/created/sites/${randomID}/index.html
-      </a>`;
+    document.getElementById('siteURL').innerHTML = `<a href="${siteURL}" target="_blank">${siteURL}</a>`;
 
     document.getElementById('result').style.display = 'block';
   }
