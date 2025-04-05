@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create New Uxidone Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Created</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,18 +14,6 @@
     }
     h1 {
       color: #58a6ff;
-    }
-    button {
-      background-color: #238636;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #2ea043;
     }
     .result {
       margin-top: 30px;
@@ -42,35 +30,30 @@
 </head>
 <body>
 
-  <h1>Create New Uxidone Site</h1>
-  <p>Click the button below to generate your new site.</p>
+  <h1>Your Site Has Been Created!</h1>
+  <p>Thank you for creating your new site. Here is your unique site ID:</p>
 
-  <button onclick="generateSite()">Generate Uxidone Site</button>
-
-  <div class="result" id="result" style="display:none;">
-    <h2>Your Site Info:</h2>
-    <p><strong>Language:</strong> <span id="langOutput"></span></p>
-    <p><strong>Description:</strong> <span id="descOutput"></span></p>
-    <p>Your Site URL:</p>
-    <p id="siteURL"></p>
-    <button onclick="alert('Request sent! Admin will create the site manually.')">Request Site Creation</button>
+  <div class="result" id="result">
+    <h2>Site ID: <span id="siteID"></span></h2>
+    <p>Your site URL is:</p>
+    <p><a id="siteURL" href="#" target="_blank">Loading...</a></p>
   </div>
 
-<script>
-  function generateSite() {
-    const randomID = Math.random().toString(36).substring(2, 12);
-    const lang = prompt("Enter your site language (English / Russian / Latvian):");
-    const desc = prompt("Enter your site description:");
-
-    const siteURL = `https://uxidone.github.io/uxidonesites/created/sites/${randomID}/index.html`;
-
-    document.getElementById('langOutput').innerText = lang;
-    document.getElementById('descOutput').innerText = desc;
-    document.getElementById('siteURL').innerHTML = `<a href="${siteURL}" target="_blank">${siteURL}</a>`;
-
-    document.getElementById('result').style.display = 'block';
-  }
-</script>
+  <script>
+    // Get the query parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const siteID = urlParams.get('id'); // Get the value of 'id' from the URL
+    
+    // Display the site ID and URL
+    if (siteID) {
+      document.getElementById('siteID').innerText = siteID;
+      const siteURL = `https://uxidone.github.io/uxidonesites/createauxidonesite/created/sites/${siteID}/index.html`;
+      document.getElementById('siteURL').innerText = siteURL;
+      document.getElementById('siteURL').setAttribute('href', siteURL);
+    } else {
+      document.getElementById('result').innerHTML = '<h2>Error: No site ID found in the URL.</h2>';
+    }
+  </script>
 
 </body>
 </html>
