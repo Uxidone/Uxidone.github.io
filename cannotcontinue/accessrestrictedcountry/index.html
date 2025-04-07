@@ -46,8 +46,7 @@
         document.getElementById('locationDisplay').textContent =
           `Detected location: ${country} (${code})`;
 
-        const blocked = ['IL', 'PS', LV']; // IL = Israel, PS = Palestine LV = Latvia
-
+        const blocked = ['IL', 'PS']; // IL = Israel, PS = Palestine
         if (!blocked.includes(code)) {
           // Not a restricted country, redirect them
           window.location.href = "/";
