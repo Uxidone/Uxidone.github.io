@@ -6,141 +6,187 @@
     <title>Raksti - Uxidone</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
             color: #333;
+            margin: 0;
             padding: 20px;
+            box-sizing: border-box;
         }
-        h1 {
-            color: #007BFF;
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
         }
+
+        header h1 {
+            font-size: 3rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+
         button {
-            background-color: #007BFF;
+            background-color: #28a745;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 10px 20px;
+            margin: 10px;
             cursor: pointer;
-            margin: 5px;
+            border-radius: 5px;
+            font-size: 1rem;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background-color: #218838;
         }
+
         .article-list {
             list-style-type: none;
             padding: 0;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
         }
+
         .article-list li {
             background-color: #fff;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .article-list h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .article-list p {
+            font-size: 1rem;
+            margin: 10px 0;
+        }
+
+        .article-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            display: none;
+            margin-top: 40px;
+        }
+
+        .article-form input, .article-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .article-form button {
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .article-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            background-color: #dc3545;
+        }
+
+        .action-buttons button:hover {
+            background-color: #c82333;
+        }
+
     </style>
 </head>
 <body>
 
-<h1>Raksti</h1>
+<header>
+    <h1>Raksti</h1>
+    <p>Izveido, rediģē un dzēs rakstus</p>
+</header>
 
-<button onclick="createArticle()">Izveidot Rakstu</button>
-<h2>Raksti saraksts</h2>
-
-<ul class="article-list" id="article-list">
-    <!-- Articles will be listed here -->
-</ul>
-
-<!-- Hidden Form for Create and Edit Article -->
-<div id="article-form" style="display: none;">
-    <h3 id="form-title">Izveidot Rakstu</h3>
-    <input type="text" id="article-title" placeholder="Raksta nosaukums" style="width: 100%; padding: 10px; margin-bottom: 10px;">
-    <textarea id="article-content" placeholder="Raksta saturs..." style="width: 100%; height: 150px; padding: 10px;"></textarea>
-    <br>
-    <button onclick="saveArticle()">Saglabāt</button>
-    <button onclick="cancelEdit()">Atcelt</button>
+<div class="container">
+    <button onclick="showCreateForm()">Izveidot Rakstu</button>
+    <div class="article-list" id="article-list">
+        <!-- Articles will appear here -->
+    </div>
+    <div class="article-form" id="article-form">
+        <h2 id="form-title">Izveidot Rakstu</h2>
+        <input type="text" id="article-title" placeholder="Raksta nosaukums" />
+        <textarea id="article-content" placeholder="Raksta saturs..."></textarea>
+        <button onclick="saveArticle()">Saglabāt</button>
+        <button onclick="cancelEdit()">Atcelt</button>
+    </div>
 </div>
 
 <script>
-    let editingArticleId = null;
+    let currentEditId = null;
 
-    // Load articles from localStorage when the page loads
-    window.onload = function() {
+    // On page load, load articles from localStorage
+    window.onload = function () {
         loadArticles();
     }
 
-    // Function to load articles from localStorage
+    // Load articles from localStorage
     function loadArticles() {
         const articles = JSON.parse(localStorage.getItem('articles')) || [];
         const articleListElement = document.getElementById('article-list');
-        articleListElement.innerHTML = ''; // Clear the list first
+        articleListElement.innerHTML = '';
 
         articles.forEach(article => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <h3><a href="#" onclick="viewArticle('${article.id}')">${article.title}</a></h3>
-                <p>${article.content}</p>
-                <button onclick="editArticle('${article.id}')">Rediģēt</button>
-                <button onclick="deleteArticle('${article.id}')">Dzēst</button>
+            const articleItem = document.createElement('li');
+            articleItem.innerHTML = `
+                <div>
+                    <h3><a href="#" onclick="viewArticle('${article.id}')">${article.title}</a></h3>
+                    <p>${article.content.substring(0, 100)}...</p>
+                </div>
+                <div class="action-buttons">
+                    <button onclick="editArticle('${article.id}')">Rediģēt</button>
+                    <button onclick="deleteArticle('${article.id}')">Dzēst</button>
+                </div>
             `;
-            articleListElement.appendChild(li);
+            articleListElement.appendChild(articleItem);
         });
     }
 
-    // Function to show the form for creating a new article
-    function createArticle() {
+    // Show form for creating a new article
+    function showCreateForm() {
         document.getElementById('article-form').style.display = 'block';
         document.getElementById('form-title').innerText = 'Izveidot Rakstu';
         document.getElementById('article-title').value = '';
         document.getElementById('article-content').value = '';
-        editingArticleId = null; // Reset the editing ID
+        currentEditId = null;
     }
 
-    // Function to save the article (both for creating and editing)
-    function saveArticle() {
-        const title = document.getElementById('article-title').value;
-        const content = document.getElementById('article-content').value;
-
-        if (!title || !content) {
-            alert("Lūdzu, ievadiet raksta nosaukumu un saturu!");
-            return;
-        }
-
+    // Show form to edit an existing article
+    function editArticle(id) {
         const articles = JSON.parse(localStorage.getItem('articles')) || [];
-
-        if (editingArticleId) {
-            // Edit existing article
-            const articleIndex = articles.findIndex(article => article.id === editingArticleId);
-            articles[articleIndex].title = title;
-            articles[articleIndex].content = content;
-        } else {
-            // Create new article
-            const newArticle = {
-                id: new Date().getTime().toString(),  // Unique ID based on timestamp
-                title: title,
-                content: content,
-            };
-            articles.push(newArticle);
-        }
-
-        // Save articles back to localStorage
-        localStorage.setItem('articles', JSON.stringify(articles));
-
-        // Hide the form and reload the articles list
-        document.getElementById('article-form').style.display = 'none';
-        loadArticles();
-    }
-
-    // Function to cancel article creation or editing
-    function cancelEdit() {
-        document.getElementById('article-form').style.display = 'none';
-    }
-
-    // Function to edit an existing article
-    function editArticle(articleId) {
-        const articles = JSON.parse(localStorage.getItem('articles')) || [];
-        const article = articles.find(a => a.id === articleId);
+        const article = articles.find(a => a.id === id);
 
         if (article) {
-            editingArticleId = articleId;
+            currentEditId = id;
             document.getElementById('article-form').style.display = 'block';
             document.getElementById('form-title').innerText = 'Rediģēt Rakstu';
             document.getElementById('article-title').value = article.title;
@@ -148,22 +194,53 @@
         }
     }
 
-    // Function to delete an article
-    function deleteArticle(articleId) {
-        if (confirm('Vai tiešām vēlaties dzēst šo rakstu?')) {
-            let articles = JSON.parse(localStorage.getItem('articles')) || [];
-            articles = articles.filter(article => article.id !== articleId);
-            localStorage.setItem('articles', JSON.stringify(articles));
-            loadArticles();
+    // Save a new or edited article
+    function saveArticle() {
+        const title = document.getElementById('article-title').value;
+        const content = document.getElementById('article-content').value;
+
+        if (!title || !content) {
+            alert("Lūdzu ievadiet nosaukumu un saturu!");
+            return;
+        }
+
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+        const article = { id: currentEditId || Date.now().toString(), title, content };
+
+        if (currentEditId) {
+            const index = articles.findIndex(a => a.id === currentEditId);
+            articles[index] = article;
+        } else {
+            articles.push(article);
+        }
+
+        localStorage.setItem('articles', JSON.stringify(articles));
+        loadArticles();
+        cancelEdit();
+    }
+
+    // Cancel the edit or create article form
+    function cancelEdit() {
+        document.getElementById('article-form').style.display = 'none';
+    }
+
+    // View an article's content
+    function viewArticle(id) {
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+        const article = articles.find(a => a.id === id);
+
+        if (article) {
+            alert(`Nosaukums: ${article.title}\n\nSaturs: ${article.content}`);
         }
     }
 
-    // Function to view an article
-    function viewArticle(articleId) {
-        const articles = JSON.parse(localStorage.getItem('articles')) || [];
-        const article = articles.find(a => a.id === articleId);
-        if (article) {
-            alert(`Raksta nosaukums: ${article.title}\n\nRaksta saturs:\n${article.content}`);
+    // Delete an article
+    function deleteArticle(id) {
+        if (confirm('Vai tiešām vēlaties dzēst šo rakstu?')) {
+            const articles = JSON.parse(localStorage.getItem('articles')) || [];
+            const updatedArticles = articles.filter(article => article.id !== id);
+            localStorage.setItem('articles', JSON.stringify(updatedArticles));
+            loadArticles();
         }
     }
 </script>
