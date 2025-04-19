@@ -2,7 +2,7 @@
 <html lang="lv">
   <head>
     <meta charset="UTF-8" />
-    <title>Uxione — Sākumlapa</title>
+    <title>Uxidone — Sākumlapa</title>
     <style>
       * {
         margin: 0;
