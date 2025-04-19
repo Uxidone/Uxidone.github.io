@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="lv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uxidone — 404 Lapa Netika Atrasta</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #2f3e46, #4e5d6b);
+        color: #ffffff;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+        overflow: hidden;
+      }
+
+      h1 {
+        font-size: 5rem;
+        color: #ff6b6b;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      p {
+        font-size: 1.3rem;
+        color: #d1d1d1;
+        margin-bottom: 30px;
+        animation: fadeIn 1.3s ease-in-out;
+        max-width: 800px;
+        line-height: 1.5;
+      }
+
+      .button {
+        display: inline-block;
+        background-color: #00c9a7;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 15px 30px;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 15px rgba(0, 201, 167, 0.2);
+      }
+
+      .button:hover {
+        background-color: #00b493;
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 201, 167, 0.3);
+      }
+
+      .error-image {
+        width: 250px;
+        margin-top: 30px;
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      footer {
+        margin-top: 40px;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      footer a {
+        color: #ff6b6b;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 3.5rem;
+        }
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>404 - Lapa Netika Atrasta</h1>
+    <p>
+      Atvainojiet, bet šķiet, ka šī lapa nav atrasta. Tā var būt pārvietota vai izdzēsta.
+      <br />
+      Lūdzu, mēģiniet doties atpakaļ uz sākumlapu vai sazinieties ar mums, ja nepieciešama palīdzība.
+    </p>
+
+    <!-- Optionally, add an error image for visual impact -->
+    <img class="error-image" src="https://via.placeholder.com/250x250.png?text=404" alt="404 Error Image" />
+
+    <a class="button" href="/">Atgriezties uz mājaslapu</a>
+
+    <footer>
+      <p>© 2025 Uxidone. Visas tiesības aizsargātas.</p>
+      <p>Sevi var atrast:</p>
+      <a href="https://twitter.com/uxidone" target="_blank">Twitter</a>
+      <a href="https://facebook.com/uxidone" target="_blank">Facebook</a>
+      <a href="https://instagram.com/uxidone" target="_blank">Instagram</a>
+    </footer>
+  </body>
+</html>
