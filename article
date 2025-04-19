@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raksti - Uxidone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .article-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .article-list li {
+            background-color: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Raksti</h1>
+
+<button onclick="createArticle()">Izveidot Rakstu</button>
+<h2>Raksti saraksts</h2>
+
+<ul class="article-list" id="article-list">
+    <!-- Articles will be listed here -->
+</ul>
+
+<!-- Hidden Form for Create and Edit Article -->
+<div id="article-form" style="display: none;">
+    <h3 id="form-title">Izveidot Rakstu</h3>
+    <input type="text" id="article-title" placeholder="Raksta nosaukums" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+    <textarea id="article-content" placeholder="Raksta saturs..." style="width: 100%; height: 150px; padding: 10px;"></textarea>
+    <br>
+    <button onclick="saveArticle()">Saglabāt</button>
+    <button onclick="cancelEdit()">Atcelt</button>
+</div>
+
+<script>
+    let editingArticleId = null;
+
+    // Load articles from localStorage when the page loads
+    window.onload = function() {
+        loadArticles();
+    }
+
+    // Function to load articles from localStorage
+    function loadArticles() {
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+        const articleListElement = document.getElementById('article-list');
+        articleListElement.innerHTML = ''; // Clear the list first
+
+        articles.forEach(article => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <h3><a href="#" onclick="viewArticle('${article.id}')">${article.title}</a></h3>
+                <p>${article.content}</p>
+                <button onclick="editArticle('${article.id}')">Rediģēt</button>
+                <button onclick="deleteArticle('${article.id}')">Dzēst</button>
+            `;
+            articleListElement.appendChild(li);
+        });
+    }
+
+    // Function to show the form for creating a new article
+    function createArticle() {
+        document.getElementById('article-form').style.display = 'block';
+        document.getElementById('form-title').innerText = 'Izveidot Rakstu';
+        document.getElementById('article-title').value = '';
+        document.getElementById('article-content').value = '';
+        editingArticleId = null; // Reset the editing ID
+    }
+
+    // Function to save the article (both for creating and editing)
+    function saveArticle() {
+        const title = document.getElementById('article-title').value;
+        const content = document.getElementById('article-content').value;
+
+        if (!title || !content) {
+            alert("Lūdzu, ievadiet raksta nosaukumu un saturu!");
+            return;
+        }
+
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+
+        if (editingArticleId) {
+            // Edit existing article
+            const articleIndex = articles.findIndex(article => article.id === editingArticleId);
+            articles[articleIndex].title = title;
+            articles[articleIndex].content = content;
+        } else {
+            // Create new article
+            const newArticle = {
+                id: new Date().getTime().toString(),  // Unique ID based on timestamp
+                title: title,
+                content: content,
+            };
+            articles.push(newArticle);
+        }
+
+        // Save articles back to localStorage
+        localStorage.setItem('articles', JSON.stringify(articles));
+
+        // Hide the form and reload the articles list
+        document.getElementById('article-form').style.display = 'none';
+        loadArticles();
+    }
+
+    // Function to cancel article creation or editing
+    function cancelEdit() {
+        document.getElementById('article-form').style.display = 'none';
+    }
+
+    // Function to edit an existing article
+    function editArticle(articleId) {
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+        const article = articles.find(a => a.id === articleId);
+
+        if (article) {
+            editingArticleId = articleId;
+            document.getElementById('article-form').style.display = 'block';
+            document.getElementById('form-title').innerText = 'Rediģēt Rakstu';
+            document.getElementById('article-title').value = article.title;
+            document.getElementById('article-content').value = article.content;
+        }
+    }
+
+    // Function to delete an article
+    function deleteArticle(articleId) {
+        if (confirm('Vai tiešām vēlaties dzēst šo rakstu?')) {
+            let articles = JSON.parse(localStorage.getItem('articles')) || [];
+            articles = articles.filter(article => article.id !== articleId);
+            localStorage.setItem('articles', JSON.stringify(articles));
+            loadArticles();
+        }
+    }
+
+    // Function to view an article
+    function viewArticle(articleId) {
+        const articles = JSON.parse(localStorage.getItem('articles')) || [];
+        const article = articles.find(a => a.id === articleId);
+        if (article) {
+            alert(`Raksta nosaukums: ${article.title}\n\nRaksta saturs:\n${article.content}`);
+        }
+    }
+</script>
+
+</body>
+</html>
