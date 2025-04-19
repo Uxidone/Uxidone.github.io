@@ -84,11 +84,11 @@
     </style>
   </head>
   <body>
-    <h1>Sveicināts Uxione</h1>
+    <h1>Sveicināts Uxidone</h1>
     <p>Profesionāla pieeja, moderna pieredze. Uzzini vairāk par mūsu projektiem un digitālajiem risinājumiem.</p>
     <a class="button" href="/majas">Ieej vietnē</a>
     <footer>
-      © 2025 Uxione. Visas tiesības aizsargātas.
+      © 2025 Uxidone. Visas tiesības aizsargātas.
     </footer>
   </body>
 </html>
