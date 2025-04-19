@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="lv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Uxidone — Mājas</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to bottom right, #141e30, #243b55);
+        color: #ffffff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        padding: 2rem;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        color: #00f2fe;
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin-bottom: 2rem;
+        color: #ddd;
+        animation: fadeIn 1.3s ease-in-out;
+      }
+
+      .button {
+        display: inline-block;
+        background-color: #00c9a7;
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        font-size: 1rem;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        animation: fadeIn 1.6s ease-in-out;
+      }
+
+      .button:hover {
+        background-color: #00967e;
+      }
+
+      .features {
+        margin-top: 5rem;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        flex-wrap: wrap;
+        padding: 3rem;
+      }
+
+      .feature {
+        background: #1f2d3b;
+        padding: 2rem;
+        border-radius: 10px;
+        width: 250px;
+        text-align: center;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .feature:hover {
+        transform: translateY(-10px);
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .feature h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #00f2fe;
+      }
+
+      .feature p {
+        font-size: 1rem;
+        color: #bbb;
+      }
+
+      footer {
+        margin-top: 5rem;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.6);
+        width: 100%;
+        text-align: center;
+        padding: 2rem;
+        background-color: #141e30;
+      }
+
+      footer a {
+        text-decoration: none;
+        color: #00f2fe;
+        margin: 0 10px;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+        .features {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <header>
+      <h1>Uxidone — Mājas Lapa</h1>
+      <p>Uzzini vairāk par mūsu inovācijām un digitālajiem risinājumiem, kas padara dzīvi vieglāku.</p>
+      <a class="button" href="/">Atpakaļ uz sākumu</a>
+    </header>
+
+    <!-- Features Section -->
+    <section class="features">
+      <div class="feature">
+        <h3>Inovatīvi Rīki</h3>
+        <p>Izstrādājam rīkus, kas uzlabo darba procesu efektivitāti un palīdz sasniegt labākus rezultātus.</p>
+      </div>
+      <div class="feature">
+        <h3>Pielāgota Pieredze</h3>
+        <p>Mūsu risinājumi tiek veidoti pēc klientu vajadzībām, nodrošinot maksimālu pielāgojamību.</p>
+      </div>
+      <div class="feature">
+        <h3>Drošība un Privātums</h3>
+        <p>Garantējam augstāko drošības līmeni, aizsargājot Jūsu datus no nevēlamiem apdraudējumiem.</p>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>© 2025 Uxidone. Visas tiesības aizsargātas.</p>
+      <p>Sevi var atrast:</p>
+      <a href="https://twitter.com/uxidone" target="_blank">Twitter</a>
+      <a href="https://facebook.com/uxidone" target="_blank">Facebook</a>
+      <a href="https://instagram.com/uxidone" target="_blank">Instagram</a>
+    </footer>
+  </body>
+</html>
