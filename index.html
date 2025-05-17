@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uxidone</title>
+    <style>
+        :root {
+            --primary: #2a4365;  /* Dark blue (corporate) */
+            --accent: #4299e1;  /* Light blue (tech accent) */
+            --text: #1a202c;
+            --background: #f7fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .nav-links a {
+            margin-left: 1.5rem;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        .hero {
+            background: linear-gradient(135deg, var(--primary), #1e3a8a);
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+        }
+        .section {
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .project-img {
+            height: 180px;
+            background: #ddd;
+            background-size: cover;
+        }
+        .project-content {
+            padding: 1.5rem;
+        }
+        .project-title {
+            margin: 0 0 0.5rem;
+            color: var(--primary);
+        }
+        .footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">Uxidone Corp</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Innovative Digital Solutions</h1>
+        <p>Uxidone Corp specializes in gaming, web development, and creative technology projects.</p>
+        <a href="#projects" class="btn">Explore Our Work</a>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">About Us</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
+            Uxidone Corp is a creative technology company focused on building immersive digital experiences, 
+            including Minecraft servers, web applications, and game development.
+        </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <h2 class="section-title">Our Projects</h2>
+        <div class="projects">
+            <!-- Project 1: Brackaszihmani Minecraft Server -->
+            <div class="project-card">
+                <div class="project-img" style="background-image: url('https://via.placeholder.com/600x400?text=Minecraft+Server');"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Brackaszihmani</h3>
+                    <p>A custom Minecraft server featuring survival, factions, and unique gameplay mechanics.</p>
+                    <a href="https://brackaszihmani.github.io" class="btn" style="display: inline-block; margin-top: 0.5rem;">Visit Project</a>
+                </div>
+            </div>
+
+            <!-- Project 2: Placeholder for Future Work -->
+            <div class="project-card">
+                <div class="project-img" style="background-image: url('https://via.placeholder.com/600x400?text=Coming+Soon');"></div>
+                <div class="project-content">
+                    <h3 class="project-title">Future Project</h3>
+                    <p>Stay tuned for upcoming innovations from Uxidone Corporation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Get In Touch</h2>
+        <p style="text-align: center;">
+            Email: <a href="mailto:WIP" style="color: var(--accent);">WIP</a><br>
+            Discord: <a href="https://discord.gg/your-invite" style="color: var(--accent);">Join Our Community</a>
+        </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024-2025 Uxidone Corporation. All rights reserved.</p>
+    </footer>
+</body>
+</html>
