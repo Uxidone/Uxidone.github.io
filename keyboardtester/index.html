@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Tester | Uxidone</title>
+    <style>
+        :root {
+            --primary: #6a0dad;  /* Uxidone purple */
+            --accent: #9c27b0;   /* Lighter purple */
+            --text: #2c003e;     /* Dark purple */
+            --background: #f3e5f5; /* Very light purple */
+            --key-default: #e1bee7;
+            --key-pressed: #ba68c8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .keyboard-display {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .key-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .key-info:last-child {
+            border-bottom: none;
+        }
+        
+        .key-label {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .key-value {
+            font-family: monospace;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        .keyboard-container {
+            margin: 40px 0;
+        }
+        
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        
+        .key {
+            background: var(--key-default);
+            border: 1px solid var(--primary);
+            border-radius: 4px;
+            padding: 12px 8px;
+            margin: 0 3px;
+            min-width: 40px;
+            text-align: center;
+            font-weight: bold;
+            color: var(--text);
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+            transition: all 0.1s ease;
+            position: relative;
+        }
+        
+        .key.active {
+            background: var(--key-pressed);
+            transform: translateY(2px);
+            box-shadow: 0 0 0 rgba(0,0,0,0.2);
+        }
+        
+        .key.space {
+            width: 300px;
+        }
+        
+        .key.tab {
+            width: 60px;
+        }
+        
+        .key.caps {
+            width: 80px;
+        }
+        
+        .key.shift {
+            width: 100px;
+        }
+        
+        .key.enter {
+            width: 90px;
+        }
+        
+        .key.backspace {
+            width: 90px;
+        }
+        
+        .key.ctrl, .key.alt, .key.meta {
+            width: 70px;
+        }
+        
+        .instructions {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--primary);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Keyboard Tester</h1>
+        
+        <div class="keyboard-display">
+            <h2>Key Information</h2>
+            <div class="key-info">
+                <span class="key-label">Key Pressed:</span>
+                <span class="key-value" id="key-pressed">Press any key...</span>
+            </div>
+            <div class="key-info">
+                <span class="key-label">Key Code:</span>
+                <span class="key-value" id="key-code">-</span>
+            </div>
+            <div class="key-info">
+                <span class="key-label">Code:</span>
+                <span class="key-value" id="code">-</span>
+            </div>
+            <div class="key-info">
+                <span class="key-label">Modifiers:</span>
+                <span class="key-value" id="modifiers">-</span>
+            </div>
+        </div>
+        
+        <div class="keyboard-container">
+            <!-- First Row -->
+            <div class="keyboard-row">
+                <div class="key" data-code="Backquote">~ `</div>
+                <div class="key" data-code="Digit1">! 1</div>
+                <div class="key" data-code="Digit2">@ 2</div>
+                <div class="key" data-code="Digit3"># 3</div>
+                <div class="key" data-code="Digit4">$ 4</div>
+                <div class="key" data-code="Digit5">% 5</div>
+                <div class="key" data-code="Digit6">^ 6</div>
+                <div class="key" data-code="Digit7">& 7</div>
+                <div class="key" data-code="Digit8">* 8</div>
+                <div class="key" data-code="Digit9">( 9</div>
+                <div class="key" data-code="Digit0">) 0</div>
+                <div class="key" data-code="Minus">_ -</div>
+                <div class="key" data-code="Equal">+ =</div>
+                <div class="key backspace" data-code="Backspace">Backspace</div>
+            </div>
+            
+            <!-- Second Row -->
+            <div class="keyboard-row">
+                <div class="key tab" data-code="Tab">Tab</div>
+                <div class="key" data-code="KeyQ">Q</div>
+                <div class="key" data-code="KeyW">W</div>
+                <div class="key" data-code="KeyE">E</div>
+                <div class="key" data-code="KeyR">R</div>
+                <div class="key" data-code="KeyT">T</div>
+                <div class="key" data-code="KeyY">Y</div>
+                <div class="key" data-code="KeyU">U</div>
+                <div class="key" data-code="KeyI">I</div>
+                <div class="key" data-code="KeyO">O</div>
+                <div class="key" data-code="KeyP">P</div>
+                <div class="key" data-code="BracketLeft">{ [</div>
+                <div class="key" data-code="BracketRight">} ]</div>
+                <div class="key" data-code="Backslash">| \</div>
+            </div>
+            
+            <!-- Third Row -->
+            <div class="keyboard-row">
+                <div class="key caps" data-code="CapsLock">Caps Lock</div>
+                <div class="key" data-code="KeyA">A</div>
+                <div class="key" data-code="KeyS">S</div>
+                <div class="key" data-code="KeyD">D</div>
+                <div class="key" data-code="KeyF">F</div>
+                <div class="key" data-code="KeyG">G</div>
+                <div class="key" data-code="KeyH">H</div>
+                <div class="key" data-code="KeyJ">J</div>
+                <div class="key" data-code="KeyK">K</div>
+                <div class="key" data-code="KeyL">L</div>
+                <div class="key" data-code="Semicolon">: ;</div>
+                <div class="key" data-code="Quote">" '</div>
+                <div class="key enter" data-code="Enter">Enter</div>
+            </div>
+            
+            <!-- Fourth Row -->
+            <div class="keyboard-row">
+                <div class="key shift" data-code="ShiftLeft">Shift</div>
+                <div class="key" data-code="KeyZ">Z</div>
+                <div class="key" data-code="KeyX">X</div>
+                <div class="key" data-code="KeyY">Y</div>
+                <div class="key" data-code="KeyC">C</div>
+                <div class="key" data-code="KeyV">V</div>
+                <div class="key" data-code="KeyB">B</div>
+                <div class="key" data-code="KeyN">N</div>
+                <div class="key" data-code="KeyM">M</div>
+                <div class="key" data-code="Comma">< ,</div>
+                <div class="key" data-code="Period">> .</div>
+                <div class="key" data-code="Slash">? /</div>
+                <div class="key shift" data-code="ShiftRight">Shift</div>
+            </div>
+            
+            <!-- Fifth Row -->
+            <div class="keyboard-row">
+                <div class="key ctrl" data-code="ControlLeft">Ctrl</div>
+                <div class="key meta" data-code="MetaLeft">Win</div>
+                <div class="key alt" data-code="AltLeft">Alt</div>
+                <div class="key space" data-code="Space">Space</div>
+                <div class="key alt" data-code="AltRight">Alt</div>
+                <div class="key meta" data-code="MetaRight">Win</div>
+                <div class="key ctrl" data-code="ControlRight">Ctrl</div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>How to Use</h2>
+            <p>This keyboard tester helps you check if all keys on your keyboard are working properly.</p>
+            <ul>
+                <li>Press any key to see its information displayed above</li>
+                <li>The corresponding key on the visual keyboard will light up</li>
+                <li>Test modifier keys (Shift, Ctrl, Alt) by holding them down</li>
+                <li>Check special keys like Function keys, Arrow keys, etc.</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Keyboard Tester Tool | Part of Uxidone Corporation</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const keyPressed = document.getElementById('key-pressed');
+            const keyCode = document.getElementById('key-code');
+            const code = document.getElementById('code');
+            const modifiers = document.getElementById('modifiers');
+            const allKeys = document.querySelectorAll('.key');
+            
+            // Map for special key display names
+            const keyDisplayMap = {
+                ' ': 'Space',
+                'Enter': 'Enter',
+                'Tab': 'Tab',
+                'ShiftLeft': 'Left Shift',
+                'ShiftRight': 'Right Shift',
+                'ControlLeft': 'Left Ctrl',
+                'ControlRight': 'Right Ctrl',
+                'AltLeft': 'Left Alt',
+                'AltRight': 'Right Alt',
+                'MetaLeft': 'Left Meta',
+                'MetaRight': 'Right Meta',
+                'CapsLock': 'Caps Lock',
+                'Backspace': 'Backspace',
+                'ArrowUp': '↑',
+                'ArrowDown': '↓',
+                'ArrowLeft': '←',
+                'ArrowRight': '→'
+            };
+            
+            document.addEventListener('keydown', function(event) {
+                // Prevent default for all keys except Escape
+                if (event.key !== 'Escape') {
+                    event.preventDefault();
+                }
+                
+                // Update key information
+                const displayName = keyDisplayMap[event.code] || event.key;
+                keyPressed.textContent = displayName === ' ' ? 'Space' : displayName;
+                keyCode.textContent = event.keyCode || event.which;
+                code.textContent = event.code;
+                
+                // Check modifier keys
+                const activeModifiers = [];
+                if (event.ctrlKey) activeModifiers.push('Ctrl');
+                if (event.shiftKey) activeModifiers.push('Shift');
+                if (event.altKey) activeModifiers.push('Alt');
+                if (event.metaKey) activeModifiers.push('Meta');
+                
+                modifiers.textContent = activeModifiers.length > 0 ? activeModifiers.join(' + ') : 'None';
+                
+                // Highlight the pressed key on visual keyboard
+                allKeys.forEach(key => {
+                    key.classList.remove('active');
+                    if (key.dataset.code === event.code) {
+                        key.classList.add('active');
+                    }
+                });
+                
+                // Special case for spacebar
+                if (event.code === 'Space') {
+                    document.querySelector('.key.space').classList.add('active');
+                }
+            });
+            
+            // Reset when no keys are pressed
+            document.addEventListener('keyup', function() {
+                allKeys.forEach(key => {
+                    key.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
