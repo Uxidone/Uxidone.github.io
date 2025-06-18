@@ -5,24 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pāradresācija</title>
     <script>
-        // Parse the 'to' parameter
+        // IMMEDIATELY FIX SLASH ISSUE BEFORE PROCESSING
+        if (window.location.pathname.endsWith('rederict/')) {
+            const newPath = window.location.pathname.replace('rederict/', 'rederict');
+            window.location.replace(window.location.origin + newPath + window.location.search);
+            throw new Error("Fixing URL format");
+        }
+
+        // PROCESS REDIRECT
         const params = new URLSearchParams(window.location.search);
         const redirectTo = params.get('to');
         
-        // Validate and redirect
         if (redirectTo === 'uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi') {
-            // Add https:// if missing
-            const fullUrl = redirectTo.startsWith('http') ? redirectTo : `https://${redirectTo}`;
-            window.location.href = fullUrl;
+            window.location.href = 'https://' + redirectTo;
         } else {
             document.body.innerHTML = `
-                <h1>Nederīga pāradresācija</h1>
-                <p>Pāradresācijas saite nav pareizi konfigurēta.</p>
-                <p>Pareizais formāts:</p>
-                <pre>https://uxidone.github.io/events/private/janina_dzimsanas_diena/jaunumi/rederict?to=uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi</pre>
+                <h1>Nepareiza pāradresācija</h1>
+                <p>Lūdzu izmantot šo formātu:</p>
+                <pre>https://uxidone.github.io/events/private/janina_dzimsanas_diena/rederict?to=uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi</pre>
+                <p style="color:red;font-weight:bold">Kļūda: URL nedrīkst būt ar slīpsvītru pirms parametriem (?to=...)</p>
             `;
         }
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body>
     <p>Notiek pāradresācija...</p>
