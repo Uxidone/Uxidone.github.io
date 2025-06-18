@@ -5,45 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pāradresācija</title>
     <script>
-        // IMMEDIATELY FIX SLASH ISSUE BEFORE PROCESSING
-        if (window.location.pathname.endsWith('rederict/')) {
-            const newPath = window.location.pathname.replace('rederict/', 'rederict');
-            window.location.replace(window.location.origin + newPath + window.location.search);
-            throw new Error("Fixing URL format");
+        // Check if URL ends with /rederict/
+        if (window.location.pathname.endsWith('/rederict/')) {
+            // Redirect to version with parameters
+            const newURL = window.location.origin + 
+                         '/events/private/janina_dzimsanas_diena/rederict?to=uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi';
+            window.location.replace(newURL);
         }
-
-        // PROCESS REDIRECT
-        const params = new URLSearchParams(window.location.search);
-        const redirectTo = params.get('to');
-        
-        if (redirectTo === 'uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi') {
-            window.location.href = 'https://' + redirectTo;
-        } else {
-            document.body.innerHTML = `
-                <h1>Nepareiza pāradresācija</h1>
-                <p>Lūdzu izmantot šo formātu:</p>
-                <pre>https://uxidone.github.io/events/private/janina_dzimsanas_diena/rederict?to=uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi</pre>
-                <p style="color:red;font-weight:bold">Kļūda: URL nedrīkst būt ar slīpsvītru pirms parametriem (?to=...)</p>
-            `;
+        // If parameters exist, process them
+        else if (window.location.search) {
+            const params = new URLSearchParams(window.location.search);
+            const redirectTo = params.get('to');
+            
+            if (redirectTo === 'uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi') {
+                window.location.href = 'https://' + redirectTo;
+            }
         }
     </script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
             text-align: center;
+            padding: 50px;
         }
-        pre {
-            background: #f5f5f5;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #9A1F1A;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <div class="loader"></div>
     <p>Notiek pāradresācija...</p>
+    <noscript>
+        <h1>JavaScript ir nepieciešams</h1>
+        <p>Lūdzu, ieslēdziet JavaScript, lai turpinātu.</p>
+        <p>Vai arī dodieties uz šo saiti tieši:</p>
+        <a href="https://uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi">
+            https://uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi
+        </a>
+    </noscript>
 </body>
 </html>
