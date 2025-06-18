@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pāradresācija</title>
+    <script>
+        // Parse the 'to' parameter
+        const params = new URLSearchParams(window.location.search);
+        const redirectTo = params.get('to');
+        
+        // Validate and redirect
+        if (redirectTo === 'uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi') {
+            // Add https:// if missing
+            const fullUrl = redirectTo.startsWith('http') ? redirectTo : `https://${redirectTo}`;
+            window.location.href = fullUrl;
+        } else {
+            document.body.innerHTML = `
+                <h1>Nederīga pāradresācija</h1>
+                <p>Pāradresācijas saite nav pareizi konfigurēta.</p>
+                <p>Pareizais formāts:</p>
+                <pre>https://uxidone.github.io/events/private/janina_dzimsanas_diena/jaunumi/rederict?to=uxidone.github.io/privateevents/janina_dzimsanas_diena/noslēpumi</pre>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <p>Notiek pāradresācija...</p>
+</body>
+</html>
