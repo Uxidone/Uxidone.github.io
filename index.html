@@ -3,320 +3,760 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="uxidone.work.gd/favicon.ico">
-    <title>Uxidone</title>    
+    <title>UXIDONE | CyberFuture Portal</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
         :root {
-            --primary: #2a4365;  /* Dark blue (corporate) */
-            --accent: #4299e1;  /* Light blue (tech accent) */
-            --text: #1a202c;
-            --background: #f7fafc;
+            --neon-blue: #0ff0fc;
+            --neon-purple: #9600ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #00ff88;
+            --neon-yellow: #f5d90a;
+            --neon-red: #ff3333;
+            --dark-bg: #0a0a12;
+            --darker-bg: #050508;
+            --grid-color: rgba(15, 240, 252, 0.05);
         }
+        
+        @font-face {
+            font-family: 'Cyber';
+            src: url('https://fonts.cdnfonts.com/css/cyberpunk-is-not-dead') format('woff2');
+            font-weight: normal;
+        }
+        
+        @font-face {
+            font-family: 'Digital';
+            src: url('https://fonts.cdnfonts.com/css/digital-numbers') format('woff2');
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: var(--background);
-            color: var(--text);
-            line-height: 1.6;
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Cyber', 'Courier New', monospace;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            min-height: 100vh;
         }
-        .navbar {
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem 2rem;
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .cyber-border {
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue),
+                        inset 0 0 10px var(--neon-blue);
+        }
+        
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1.5rem 3rem;
+            background-color: rgba(10, 10, 18, 0.8);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--neon-purple);
         }
+        
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
-        .nav-links a {
-            margin-left: 1.5rem;
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 500;
+        
+        .logo-img {
+            height: 40px;
+            filter: drop-shadow(0 0 5px var(--neon-blue)) 
+                   drop-shadow(0 0 10px var(--neon-purple));
+            animation: pulse 2s infinite alternate;
         }
-        .hero {
-            background: linear-gradient(135deg, var(--primary), #1e3a8a);
-            color: white;
-            padding: 4rem 1rem;
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(150, 0, 255, 0.5);
+        }
+        
+        .main-container {
+            min-height: calc(100vh - 240px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
             text-align: center;
         }
-        .hero h1 {
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            line-height: 1.6;
+            text-shadow: 0 0 5px rgba(15, 240, 252, 0.5);
+        }
+        
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .cyber-button {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+            font-family: 'Cyber', monospace;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            z-index: 1;
+        }
+        
+        .cyber-button:hover {
+            background: rgba(15, 240, 252, 0.1);
+            box-shadow: 0 0 10px var(--neon-blue),
+                        0 0 20px var(--neon-blue),
+                        inset 0 0 10px var(--neon-blue);
+            color: white;
+        }
+        
+        .cyber-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(15, 240, 252, 0.4), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        
+        .cyber-button:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        
+        .btn-secondary {
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+        }
+        
+        .btn-warning {
+            border-color: var(--neon-yellow);
+            color: var(--neon-yellow);
+        }
+        
+        .btn-danger {
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+        }
+        
+        .btn-success {
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+        
+        .access-denied {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(5, 5, 8, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .denied-text {
+            color: var(--neon-pink);
             font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--neon-pink);
+            animation: glitch 1s linear infinite;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { 
+                text-shadow: 0 0 10px var(--neon-pink);
+                transform: translate(0);
+            }
+            20% { 
+                text-shadow: -5px -5px 10px var(--neon-blue);
+                transform: translate(-2px, 2px);
+            }
+            40% { 
+                text-shadow: 5px 5px 10px var(--neon-purple);
+                transform: translate(2px, -2px);
+            }
+            60% { 
+                text-shadow: -5px 5px 10px var(--neon-blue);
+                transform: translate(2px, 2px);
+            }
+            80% { 
+                text-shadow: 5px -5px 10px var(--neon-purple);
+                transform: translate(-2px, -2px);
+            }
+        }
+        
+        .countdown {
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            margin: 2rem 0;
+            font-family: 'Digital', 'Courier New', monospace;
+            letter-spacing: 2px;
+            padding: 1rem 2rem;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue);
+            background-color: rgba(5, 5, 8, 0.7);
+        }
+        
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .footer {
+            background-color: rgba(10, 10, 18, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--neon-purple);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .copyright {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             margin-bottom: 1rem;
         }
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
+        
+        .copyright-logo {
+            height: 30px;
+            filter: drop-shadow(0 0 5px var(--neon-green));
         }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+        
+        .copyright-text {
+            font-size: 0.9rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+        
+        .legal-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .legal-link {
+            color: var(--neon-blue);
             text-decoration: none;
-            font-weight: 600;
-            transition: 0.3s;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            position: relative;
         }
-        .btn:hover {
-            background: #3182ce;
-            transform: translateY(-2px);
+        
+        .legal-link:hover {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
         }
-        .section {
-            padding: 3rem 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
+        
+        .legal-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--neon-pink);
+            transition: width 0.3s;
         }
-        .section-title {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--primary);
+        
+        .legal-link:hover::after {
+            width: 100%;
         }
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        
+        .info-panel {
+            background-color: rgba(5, 5, 8, 0.7);
+            border: 1px solid var(--neon-purple);
+            box-shadow: 0 0 15px var(--neon-purple);
+            padding: 2rem;
+            margin: 2rem 0;
+            max-width: 800px;
+            text-align: left;
+            line-height: 1.6;
         }
-        .project-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: 0.3s;
+        
+        .info-panel h2 {
+            color: var(--neon-blue);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--neon-purple);
+            padding-bottom: 0.5rem;
         }
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        
+        .info-panel p {
+            margin-bottom: 1rem;
         }
-        .project-img {
-            height: 180px;
-            background: #ddd;
-            background-size: cover;
-        }
-        .project-content {
-            padding: 1.5rem;
-        }
-        .project-title {
-            margin: 0 0 0.5rem;
-            color: var(--primary);
-        }
-        .footer {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-            margin-top: 2rem;
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .countdown {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+            
+            .legal-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="logo">Uxidone Corp</div>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+    <div id="particles-js"></div>
+    <canvas id="matrix-rain" class="matrix-rain"></canvas>
+    
+    <header class="header cyber-border">
+        <div class="logo">
+            <img src="/favicon.ico" alt="UXIDONE Logo" class="logo-img">
+            <span class="logo-text">UXIDONE</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Innovative Digital Solutions</h1>
-        <p>Uxidone Corp specializes in gaming, web development, and creative technology projects.</p>
-        <a href="#projects" class="btn">Explore Our Work</a>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2 class="section-title">About Us</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto;">
-            Uxidone Corp is a creative technology company focused on building immersive digital experiences, 
-            including Minecraft servers, web applications, and game development.
-        </p>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <h2 class="section-title">Our Projects</h2>
-        <div class="projects">
-            <!-- Project 1: Brackaszihmani Minecraft Server -->
-            <div class="project-card">
-                <div class="project-img" style="background-image: url('https://via.placeholder.com/600x400?text=Minecraft+Server');"></div>
-                <div class="project-content">
-                    <h3 class="project-title">Brackaszihmani</h3>
-                    <p>A custom Minecraft server featuring survival, factions, and unique gameplay mechanics.</p>
-                    <a href="https://aka-xe.github.io/mcserver" class="btn" style="display: inline-block; margin-top: 0.5rem;">Visit Project</a>
-                </div>
-            </div>
-
-            <!-- Project 2: Placeholder for Future Work -->
-            <div class="project-card">
-                <div class="project-img" style="background-image: url('https://via.placeholder.com/600x400?text=Coming+Soon');"></div>
-                <div class="project-content">
-                    <h3 class="project-title">Future Project</h3>
-                    <p>Stay tuned for upcoming innovations from Uxidone Corporation.</p>
-                </div>
-            </div>
+    </header>
+    
+    <main class="main-container">
+        <h1>CYBERFUTURE PORTAL</h1>
+        <p class="subtitle">Welcome to the next evolution of digital interaction. This platform is optimized for modern systems with scheduled legacy support windows.</p>
+        
+        <div class="info-panel">
+            <h2>⚠️ SYSTEM NOTICE</h2>
+            <p>This website utilizes cutting-edge web technologies that may not be fully compatible with legacy operating systems. Windows XP users may access the legacy portal during designated support windows.</p>
+            <p>Full compatibility is guaranteed for Windows 10/11, macOS 11+, and modern Linux distributions.</p>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <h2 class="section-title">Get In Touch</h2>
-        <p style="text-align: center;">
-            Email: <a href="mailto:WIP" style="color: var(--accent);">WIP</a><br>
-            Discord: <a href="https://discord.gg/your-invite" style="color: var(--accent);">Join Our Community</a>
-        </p>
-    </section>
-
-    <!-- Footer -->
+        
+        <div class="button-group">
+            <button class="cyber-button btn-primary" id="enterSite">ENTER PORTAL</button>
+            <button class="cyber-button btn-secondary" id="learnMore">SYSTEM SPECS</button>
+            <button class="cyber-button btn-warning" id="supportBtn">SUPPORT</button>
+            <button class="cyber-button btn-success" id="downloadBtn">DOWNLOADS</button>
+            <button class="cyber-button btn-danger" id="emergencyBtn">EMERGENCY</button>
+        </div>
+        
+        <div class="info-panel">
+            <h2>🕒 LEGACY SUPPORT SCHEDULE</h2>
+            <p>Windows XP support is available during the following periods:</p>
+            <ul>
+                <li>Until <strong>June 22, 2025, 18:32 UTC</strong></li>
+                <li>Temporary access: <strong>June 23, 2025, 07:05 - 15:23 UTC</strong></li>
+            </ul>
+            <p>After June 23, 2025, 19:12 UTC, the legacy portal will be permanently deactivated.</p>
+        </div>
+    </main>
+    
     <footer class="footer">
-        <p>&copy; 2024-2025 Uxidone Corporation. All rights reserved.</p>
+        <div class="copyright">
+            <img src="/favicon.ico" alt="Copyright Logo" class="copyright-logo">
+            <span class="copyright-text">© 2024-2025 Uxidone Corporation. All rights reserved.</span>
+        </div>
+        <div class="legal-links">
+            <a href="#" class="legal-link">Terms of Service</a>
+            <a href="#" class="legal-link">Privacy Policy</a>
+            <a href="#" class="legal-link">Legal Notice</a>
+            <a href="#" class="legal-link">Compliance</a>
+            <a href="#" class="legal-link">Contact</a>
+        </div>
     </footer>
-</body>
-</html>
-
-
+    
+    <div id="accessDenied" class="access-denied" style="display: none;">
+        <div class="denied-text">ACCESS RESTRICTED</div>
+        <p>Your system does not meet minimum requirements</p>
+        <div id="xpRedirectNotice" style="display: none;">
+            <p>Windows XP users may access the legacy portal until:</p>
+            <div class="countdown" id="xpCountdown"></div>
+            <button class="cyber-button" id="legacyPortalBtn">ENTER LEGACY PORTAL</button>
+        </div>
+        <div class="copyright" style="margin-top: 2rem;">
+            <img src="/favicon.ico" alt="Copyright Logo" class="copyright-logo">
+            <span class="copyright-text">© 2024-2025 Uxidone Corporation. All rights reserved.</span>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Elements
-            const container = document.getElementById('uxidoneContainer');
-            const mainTitle = document.getElementById('mainTitle');
-            const subTitle = document.getElementById('subTitle');
-            const copyright = document.getElementById('copyright');
-            const siteContent = document.getElementById('siteContent');
-            const canvas = document.getElementById('particleCanvas');
+        // Enhanced OS detection with XP-specific handling
+        function getWindowsVersion() {
+            const userAgent = navigator.userAgent;
+            const versionMap = {
+                "Windows NT 10.0": "Windows 10",
+                "Windows NT 6.3": "Windows 8.1",
+                "Windows NT 6.2": "Windows 8",
+                "Windows NT 6.1": "Windows 7",
+                "Windows NT 6.0": "Windows Vista",
+                "Windows NT 5.1": "Windows XP",
+                "Windows NT 5.0": "Windows 2000",
+                "Windows 98": "Windows 98",
+                "Windows 95": "Windows 95"
+            };
+            
+            for (const [key, value] of Object.entries(versionMap)) {
+                if (userAgent.includes(key)) return value;
+            }
+            
+            return "Unknown";
+        }
+        
+        // Matrix rain effect for XP users
+        function initMatrixRain() {
+            const canvas = document.getElementById('matrix-rain');
             const ctx = canvas.getContext('2d');
-
-            // Canvas setup
-            function resizeCanvas() {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+            
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
+            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const nums = '0123456789';
+            const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            const alphabet = katakana + latin + nums + symbols;
+            
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            const rainDrops = [];
+            
+            for (let x = 0; x < columns; x++) {
+                rainDrops[x] = {
+                    y: Math.random() * -100,
+                    speed: 2 + Math.random() * 5,
+                    length: 10 + Math.floor(Math.random() * 20)
+                };
             }
-            resizeCanvas();
-
-            // Particle system
-            class Particle {
-                constructor() {
-                    this.reset();
-                    this.z = Math.random() * 4 - 2;
-                }
-
-                reset() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() * canvas.height;
-                    this.size = Math.random() * 2 + 1;
-                    this.speedX = Math.random() * 3 - 1.5;
-                    this.speedY = Math.random() * 3 - 1.5;
-                    this.color = `hsla(${Math.random() * 60 + 180}, 100%, 60%, ${Math.random() * 0.5 + 0.2})`;
-                }
-
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    this.z += Math.random() * 0.1 - 0.05;
-
-                    if (this.x > canvas.width + 50) this.x = -50;
-                    if (this.x < -50) this.x = canvas.width + 50;
-                    if (this.y > canvas.height + 50) this.y = -50;
-                    if (this.y < -50) this.y = canvas.height + 50;
-                }
-
-                draw() {
-                    const scale = 1 + this.z * 0.3;
-                    const x = this.x + Math.sin(Date.now() * 0.001 + this.z) * 30;
-                    const y = this.y + Math.cos(Date.now() * 0.001 + this.z) * 30;
-                    
-                    ctx.save();
-                    ctx.globalAlpha = 0.7;
-                    ctx.fillStyle = this.color;
-                    ctx.beginPath();
-                    ctx.arc(x, y, this.size * scale, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                }
-            }
-
-            const particles = Array.from({ length: 150 }, () => new Particle());
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            const draw = () => {
+                ctx.fillStyle = 'rgba(5, 5, 8, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
                 
-                // Connection lines
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 120) {
-                            ctx.beginPath();
-                            ctx.strokeStyle = `hsla(180, 100%, 60%, ${0.5 - distance/240})`;
-                            ctx.lineWidth = 0.7;
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
+                ctx.fillStyle = var(--neon-green);
+                ctx.font = `bold ${fontSize}px monospace`;
+                
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const drop = rainDrops[i];
+                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                    
+                    // Draw main character brighter
+                    ctx.fillStyle = var(--neon-green);
+                    ctx.fillText(text, i * fontSize, drop.y * fontSize);
+                    
+                    // Draw trail characters dimmer
+                    for (let j = 1; j < drop.length; j++) {
+                        const trailChar = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                        const alpha = 0.5 * (1 - j/drop.length);
+                        ctx.fillStyle = `rgba(0, 255, 136, ${alpha})`;
+                        ctx.fillText(trailChar, i * fontSize, (drop.y - j) * fontSize);
+                    }
+                    
+                    // Reset drop when it reaches bottom
+                    if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = {
+                            y: Math.random() * -100,
+                            speed: 2 + Math.random() * 5,
+                            length: 10 + Math.floor(Math.random() * 20)
+                        };
+                    }
+                    drop.y += drop.speed / 10;
+                }
+            };
+            
+            setInterval(draw, 30);
+        }
+        
+        // Initialize particle.js
+        function initParticles() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { 
+                        value: 80, 
+                        density: { 
+                            enable: true, 
+                            value_area: 800 
+                        } 
+                    },
+                    color: { 
+                        value: "#0ff0fc",
+                        animation: {
+                            enable: true,
+                            speed: 10,
+                            sync: true
+                        }
+                    },
+                    shape: { 
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        }
+                    },
+                    opacity: { 
+                        value: 0.5, 
+                        random: true,
+                        animation: {
+                            enable: true,
+                            speed: 1,
+                            minimumValue: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: { 
+                        value: 3, 
+                        random: true,
+                        animation: {
+                            enable: true,
+                            speed: 2,
+                            minimumValue: 1,
+                            sync: false
+                        }
+                    },
+                    line_linked: { 
+                        enable: true, 
+                        distance: 150, 
+                        color: "#0ff0fc", 
+                        opacity: 0.2, 
+                        width: 1 
+                    },
+                    move: { 
+                        enable: true, 
+                        speed: 2, 
+                        direction: "none", 
+                        random: true, 
+                        straight: false, 
+                        out_mode: "out",
+                        attract: {
+                            enable: true,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { 
+                            enable: true, 
+                            mode: "grab",
+                            parallax: {
+                                enable: true,
+                                force: 30,
+                                smooth: 10
+                            }
+                        },
+                        onclick: { 
+                            enable: true, 
+                            mode: "push",
+                            push: {
+                                particles_nb: 4
+                            }
                         }
                     }
                 }
-
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
-
-                requestAnimationFrame(animateParticles);
-            }
-            animateParticles();
-
-            // Animation sequence
-            setTimeout(() => {
-                mainTitle.style.animation = 'textAppear 1.2s ease-out forwards';
-                mainTitle.style.opacity = '1';
-                
-                setTimeout(() => {
-                    subTitle.style.animation = 'textAppear 1.2s ease-out forwards';
-                    subTitle.style.opacity = '1';
-                    copyright.style.animation = 'textAppear 1.2s ease-out forwards';
-                    copyright.style.opacity = '1';
-                }, 600);
-            }, 500);
-
-            // Reverse after 10 seconds
-            setTimeout(() => {
-                mainTitle.style.animation = 'textDisappear 1.5s ease-out forwards';
-                subTitle.style.animation = 'textDisappear 1.5s ease-out forwards';
-                copyright.style.animation = 'textDisappear 1.5s ease-out forwards';
-                container.style.animation = 'constructExit 2s ease-out forwards';
-                
-                setTimeout(() => {
-                    container.style.display = 'none';
-                    siteContent.style.display = 'flex';
-                    siteContent.style.animation = 'textAppear 1.5s ease-out forwards';
-                }, 1500);
-            }, 10000);
-
-            // Mouse interaction
-            window.addEventListener('mousemove', (e) => {
-                if (Math.random() > 0.8) {
-                    const p = new Particle();
-                    p.x = e.clientX;
-                    p.y = e.clientY;
-                    p.speedX = (Math.random() - 0.5) * 6;
-                    p.speedY = (Math.random() - 0.5) * 6;
-                    p.color = `hsla(${Math.random() * 30 + 330}, 100%, 60%, 0.7)`;
-                    particles.push(p);
-                }
             });
-
-            window.addEventListener('resize', resizeCanvas);
+        }
+        
+        // Format countdown timer with days, hours, minutes, seconds
+        function formatCountdown(endTime) {
+            const now = new Date();
+            const diff = endTime - now;
+            
+            if (diff <= 0) return "00:00:00:00";
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            return `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+        }
+        
+        // Check XP access permissions
+        function checkXPAccess() {
+            const version = getWindowsVersion();
+            const isXP = version === "Windows XP";
+            const shutdownTime = new Date(2025, 5, 23, 19, 12, 0); // June 23, 2025 19:12
+            
+            if (isXP) {
+                const now = new Date();
+                const accessDenied = document.getElementById('accessDenied');
+                const xpRedirect = document.getElementById('xpRedirectNotice');
+                const xpCountdown = document.getElementById('xpCountdown');
+                const legacyBtn = document.getElementById('legacyPortalBtn');
+                
+                accessDenied.style.display = 'flex';
+                document.getElementById('mainContent').style.display = 'none';
+                
+                if (now < shutdownTime) {
+                    xpRedirect.style.display = 'block';
+                    
+                    // Update countdown
+                    const updateCountdown = () => {
+                        const timeLeft = shutdownTime - new Date();
+                        xpCountdown.textContent = formatCountdown(shutdownTime);
+                        
+                        if (timeLeft <= 0) {
+                            clearInterval(countdownInterval);
+                            xpCountdown.textContent = "LEGACY ACCESS TERMINATED";
+                            legacyBtn.disabled = true;
+                            legacyBtn.style.opacity = '0.5';
+                            legacyBtn.style.cursor = 'not-allowed';
+                        }
+                    };
+                    
+                    updateCountdown();
+                    const countdownInterval = setInterval(updateCountdown, 1000);
+                    
+                    legacyBtn.onclick = () => {
+                        window.location.href = 'https://uxidone.github.io/windowsxpsite';
+                    };
+                } else {
+                    xpRedirect.style.display = 'none';
+                    document.querySelector('.denied-text').textContent = 'LEGACY ACCESS TERMINATED';
+                    document.querySelector('.denied-text').style.animation = 'none';
+                    document.querySelector('.denied-text').style.color = '#ff5555';
+                }
+                
+                initMatrixRain();
+            } else {
+                initParticles();
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkXPAccess();
+            
+            // Button event handlers
+            document.getElementById('enterSite').onclick = function() {
+                alert("Redirecting to main portal...");
+                // window.location.href = "/main";
+            };
+            
+            document.getElementById('learnMore').onclick = function() {
+                alert("Displaying system specifications...");
+                // window.location.href = "/specs";
+            };
+            
+            document.getElementById('supportBtn').onclick = function() {
+                alert("Opening support page...");
+                // window.location.href = "/support";
+            };
+            
+            document.getElementById('downloadBtn').onclick = function() {
+                alert("Accessing downloads...");
+                // window.location.href = "/downloads";
+            };
+            
+            document.getElementById('emergencyBtn').onclick = function() {
+                alert("⚠️ Emergency protocol activated!");
+                // window.location.href = "/emergency";
+            };
+            
+            // Make copyright logo pulse
+            const copyrightLogo = document.querySelector('.copyright-logo');
+            if (copyrightLogo) {
+                setInterval(() => {
+                    copyrightLogo.style.filter = `drop-shadow(0 0 ${5 + Math.random() * 5}px var(--neon-green))`;
+                }, 2000);
+            }
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            const canvas = document.getElementById('matrix-rain');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
         });
     </script>
 </body>
