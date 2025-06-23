@@ -3,427 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UXIDONE Portal System</title>
+    <title>UXIDONE Portal</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
         :root {
-            --xp-blue: #0080ff;
-            --xp-green: #00aa44;
-            --xp-gray: #c0c0c0;
-            --xp-dark: #0a246a;
-            --xp-light: #e6e6e6;
-            --modern-blue: #2563eb;
-            --modern-dark: #0f172a;
+            --uxidone-purple: #6a0dad;
+            --uxidone-light: #9c27b0;
+            --uxidone-dark: #4b0082;
+            --uxidone-accent: #e1bee7;
+            --text-light: #f3e5f5;
+            --text-dark: #4a148c;
         }
         
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Tahoma', 'Arial', sans-serif;
-            min-height: 100vh;
-            display: flex;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Maintenance Overlay */
+        .maintenance-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(106, 13, 173, 0.9);
+            color: var(--text-light);
+            display: none;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            text-align: center;
         }
         
-        /* Legacy XP Styling */
-        .legacy-style {
-            background-color: var(--xp-dark);
-            color: black;
-            background-image: 
-                linear-gradient(rgba(0, 128, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 128, 255, 0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        
-        /* Modern Styling */
-        .modern-style {
-            background-color: var(--modern-dark);
+        .maintenance-code {
+            font-size: 5rem;
+            font-weight: bold;
+            margin: 0;
             color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
         
+        /* Header */
         .header {
-            padding: 10px;
+            background: linear-gradient(135deg, var(--uxidone-dark), var(--uxidone-purple));
+            color: var(--text-light);
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        
-        .legacy-header {
-            background-color: var(--xp-blue);
-            border-bottom: 3px solid var(--xp-green);
-        }
-        
-        .modern-header {
-            background-color: var(--modern-blue);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 1rem;
         }
         
         .logo-img {
             height: 40px;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
         }
         
         .logo-text {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
         
-        .legacy-logo-text {
+        /* Timer Bar */
+        .timer-bar {
+            background-color: var(--uxidone-dark);
             color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .modern-logo-text {
-            color: white;
-        }
-        
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .window {
-            padding: 15px;
-            max-width: 600px;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-        }
-        
-        .xp-window {
-            background-color: var(--xp-gray);
-            border: 3px solid;
-            border-top-color: white;
-            border-left-color: white;
-            border-right-color: #808080;
-            border-bottom-color: #808080;
-        }
-        
-        .modern-window {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--modern-blue);
-            backdrop-filter: blur(5px);
-        }
-        
-        .window-title {
-            padding: 5px 10px;
-            font-weight: bold;
-            margin: -15px -15px 15px -15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .xp-title {
-            background-color: var(--xp-blue);
-            color: white;
-        }
-        
-        .modern-title {
-            background-color: var(--modern-blue);
-            color: white;
-        }
-        
-        .button {
-            padding: 5px 15px;
-            font-weight: bold;
-            cursor: pointer;
-            margin: 5px;
-        }
-        
-        .xp-button {
-            background-color: var(--xp-gray);
-            border: 2px solid;
-            border-top-color: white;
-            border-left-color: white;
-            border-right-color: #808080;
-            border-bottom-color: #808080;
-            color: black;
-        }
-        
-        .xp-button:hover {
-            background-color: var(--xp-light);
-        }
-        
-        .xp-button:active {
-            border-top-color: #808080;
-            border-left-color: #808080;
-            border-right-color: white;
-            border-bottom-color: white;
-        }
-        
-        .modern-button {
-            background-color: var(--modern-blue);
-            border: none;
-            color: white;
-            border-radius: 4px;
-        }
-        
-        .modern-button:hover {
-            background-color: #1d4ed8;
-        }
-        
-        .countdown {
-            font-family: 'Courier New', monospace;
-            font-size: 18px;
-            margin: 15px 0;
-            padding: 10px;
-        }
-        
-        .xp-countdown {
-            color: var(--xp-blue);
-            background-color: white;
-            border: 2px solid var(--xp-blue);
-        }
-        
-        .modern-countdown {
-            color: white;
-            background-color: rgba(37, 99, 235, 0.3);
-            border: 1px solid var(--modern-blue);
-        }
-        
-        .message {
-            padding: 10px;
-            margin: 20px 0;
-            font-weight: bold;
-        }
-        
-        .xp-message {
-            background-color: var(--xp-light);
-            border: 2px solid var(--xp-blue);
-        }
-        
-        .modern-message {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--modern-blue);
-        }
-        
-        .footer {
-            padding: 10px;
-            font-size: 12px;
-            color: white;
+            padding: 0.8rem;
             text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         
-        .xp-footer {
-            background-color: var(--xp-blue);
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         
-        .modern-footer {
-            background-color: var(--modern-blue);
+        /* Button Styles */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            justify-content: center;
         }
         
-        .support-schedule {
-            text-align: left;
-            margin-left: 20px;
-            margin-bottom: 20px;
+        .ux-button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .ux-button-primary {
+            background-color: var(--uxidone-purple);
+            color: white;
+        }
+        
+        .ux-button-primary:hover {
+            background-color: var(--uxidone-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(106, 13, 173, 0.3);
+        }
+        
+        .ux-button-secondary {
+            background-color: var(--uxidone-accent);
+            color: var(--text-dark);
+        }
+        
+        .ux-button-secondary:hover {
+            background-color: #d1c4e9;
+            transform: translateY(-2px);
+        }
+        
+        .ux-button-warning {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .ux-button-warning:hover {
+            background-color: #fb8c00;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--uxidone-dark);
+            color: var(--text-light);
+            margin-top: 2rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .main-container {
+                padding: 1rem;
+                margin: 1rem;
+            }
         }
     </style>
 </head>
-<body id="bodyElement">
-    <div class="header" id="headerElement">
+<body>
+    <!-- Maintenance Overlay -->
+    <div class="maintenance-overlay" id="maintenanceOverlay">
+        <h1 class="maintenance-code">403</h1>
+        <h2>Access Denied</h2>
+        <p>The site is currently under maintenance.</p>
+        <p>Please check back later.</p>
+    </div>
+    
+    <!-- Normal Site Content -->
+    <header class="header">
         <div class="logo">
             <img src="/favicon.ico" alt="UXIDONE Logo" class="logo-img">
-            <span class="logo-text" id="logoTextElement">UXIDONE Portal</span>
+            <span class="logo-text">UXIDONE</span>
         </div>
+        <div class="timer-bar" id="timerBar">
+            Windows 95-XP Support: Active (Ends in <span id="supportTimer">--:--:--</span>)
+        </div>
+    </header>
+    
+    <div class="main-container">
+        <h1>Welcome to UXIDONE Portal</h1>
+        <p>Experience our platform with full legacy Windows support during designated periods.</p>
+        
+        <div class="button-group">
+            <button class="ux-button ux-button-primary">
+                <span>🏠</span> Home
+            </button>
+            <button class="ux-button ux-button-primary">
+                <span>📁</span> Documents
+            </button>
+            <button class="ux-button ux-button-secondary">
+                <span>⚙️</span> Settings
+            </button>
+            <button class="ux-button ux-button-secondary">
+                <span>👤</span> Profile
+            </button>
+            <button class="ux-button ux-button-warning">
+                <span>🔒</span> Security
+            </button>
+            <button class="ux-button ux-button-warning">
+                <span>🛡️</span> Admin
+            </button>
+        </div>
+        
+        <h2>Legacy Support Schedule</h2>
+        <ul>
+            <li>Original support until: June 22, 2025 18:32 UTC</li>
+            <li>Temporary support window: June 23, 2025 07:05-09:45 UTC</li>
+        </ul>
+        <p>After 09:45 UTC on June 23, Windows 95-XP support will be permanently discontinued.</p>
     </div>
     
-    <div class="main-content" id="mainContent">
-        <!-- Content will be dynamically loaded -->
-    </div>
-    
-    <div class="footer" id="footerElement">
+    <footer class="footer">
         © 2024-2025 Uxidone Corporation. All rights reserved.
-    </div>
+    </footer>
 
     <script>
-        // Detect legacy Windows versions (95 to XP)
-        function isLegacyWindows() {
-            const userAgent = navigator.userAgent;
-            return userAgent.includes("Windows NT 5.1") ||  // XP
-                   userAgent.includes("Windows NT 5.0") ||  // 2000
-                   userAgent.includes("Windows 98") || 
-                   userAgent.includes("Windows 95");
-        }
-
-        // Format countdown timer
-        function formatCountdown(endTime) {
+        // Support schedule
+        const originalEnd = new Date(2025, 5, 22, 18, 32, 0); // June 22 2025 18:32
+        const tempSupportStart = new Date(2025, 5, 23, 7, 5, 0); // June 23 2025 07:05
+        const tempSupportEnd = new Date(2025, 5, 23, 9, 45, 0); // June 23 2025 09:45
+        
+        // Check if we should show maintenance (after 9:45 AM)
+        function checkMaintenance() {
             const now = new Date();
-            const diff = endTime - now;
             
-            if (diff <= 0) return "00:00:00:00";
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            // Show maintenance after 9:45 AM on June 23
+            if (now >= tempSupportEnd) {
+                document.getElementById('maintenanceOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         }
-
-        // Apply legacy styling
-        function applyLegacyStyling() {
-            document.getElementById('bodyElement').className = 'legacy-style';
-            document.getElementById('headerElement').className = 'header legacy-header';
-            document.getElementById('logoTextElement').className = 'logo-text legacy-logo-text';
-            document.getElementById('footerElement').className = 'footer xp-footer';
-        }
-
-        // Apply modern styling
-        function applyModernStyling() {
-            document.getElementById('bodyElement').className = 'modern-style';
-            document.getElementById('headerElement').className = 'header modern-header';
-            document.getElementById('logoTextElement').className = 'logo-text modern-logo-text';
-            document.getElementById('footerElement').className = 'footer modern-footer';
-        }
-
-        // Show legacy portal
-        function showLegacyPortal() {
-            applyLegacyStyling();
-            
+        
+        // Update the support timer
+        function updateSupportTimer() {
             const now = new Date();
-            const originalEnd = new Date(2025, 5, 22, 18, 32, 0); // June 22 2025 18:32
-            const tempSupportStart = new Date(2025, 5, 23, 7, 5, 0); // June 23 2025 07:05
-            const tempSupportEnd = new Date(2025, 5, 23, 15, 25, 0); // June 23 2025 15:25
-            
-            let content = '';
+            let targetTime, message;
             
             if (now < originalEnd) {
-                // Original support period
-                content = `
-                    <div class="window xp-window">
-                        <div class="window-title xp-title">
-                            <span>Legacy Support Active</span>
-                        </div>
-                        <p>Windows 95-XP support available until:</p>
-                        <div class="countdown xp-countdown">
-                            ${originalEnd.toLocaleString()}
-                        </div>
-                        <p>After this time, support will be temporarily unavailable until June 23.</p>
-                        <button class="button xp-button" onclick="window.location.href='https://uxidone.github.io/windowsxpsite'">Enter Legacy Portal</button>
-                    </div>
-                `;
-            }
-            else if (now >= tempSupportStart && now <= tempSupportEnd) {
-                // Temporary support window - redirect immediately
-                window.location.href = "https://uxidone.github.io/windowsxpsite";
-                return;
+                targetTime = originalEnd;
+                message = "Windows 95-XP Support: Active (Ends in ";
+            } 
+            else if (now >= tempSupportStart && now < tempSupportEnd) {
+                targetTime = tempSupportEnd;
+                message = "Windows 95-XP Support: TEMPORARY (Ends in ";
             }
             else {
-                // Outside support windows
-                content = `
-                    <div class="window xp-window">
-                        <div class="window-title xp-title">
-                            <span>Legacy Support Unavailable</span>
-                        </div>
-                        <div class="message xp-message">
-                            Windows 95-XP support is currently offline
-                        </div>
-                        ${now < tempSupportStart ? 
-                            `<p>Support will be available again on June 23, 2025 between 07:05-15:25.</p>
-                             <div class="countdown xp-countdown">
-                                Time until temporary support: ${formatCountdown(tempSupportStart)}
-                             </div>` : 
-                            `<p>Final support period ended at June 23, 2025 15:25.</p>
-                             <p>Legacy Windows support has been permanently removed.</p>`}
-                    </div>
-                `;
+                targetTime = null;
+                document.getElementById('timerBar').textContent = 
+                    "Windows 95-XP Support: PERMANENTLY DISCONTINUED";
+                return;
             }
             
-            document.getElementById('mainContent').innerHTML = content;
+            const update = () => {
+                const diff = targetTime - new Date();
+                
+                if (diff <= 0) {
+                    location.reload(); // Refresh when time reaches target
+                    return;
+                }
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                document.getElementById('supportTimer').textContent = 
+                    `${hours}h ${minutes}m ${seconds}s`;
+            };
+            
+            update();
+            setInterval(update, 1000);
         }
-
-        // Show modern site
-        function showModernSite() {
-            applyModernStyling();
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            checkMaintenance();
+            updateSupportTimer();
             
-            const originalEnd = new Date(2025, 5, 22, 18, 32, 0);
-            const tempSupportStart = new Date(2025, 5, 23, 7, 5, 0);
-            const tempSupportEnd = new Date(2025, 5, 23, 15, 25, 0);
-            const now = new Date();
-            
-            let legacyStatus = '';
-            if (now < originalEnd) {
-                legacyStatus = `<div class="countdown modern-countdown">Legacy support ends in: ${formatCountdown(originalEnd)}</div>`;
-            } else if (now >= tempSupportStart && now <= tempSupportEnd) {
-                legacyStatus = `<div class="message modern-message">Legacy support temporarily active until 15:25</div>`;
-            } else if (now > tempSupportEnd) {
-                legacyStatus = `<div class="message modern-message">Legacy Windows support has ended</div>`;
-            } else {
-                legacyStatus = `<div class="countdown modern-countdown">Temporary legacy support in: ${formatCountdown(tempSupportStart)}</div>`;
-            }
-            
-            document.getElementById('mainContent').innerHTML = `
-                <div class="window modern-window">
-                    <div class="window-title modern-title">
-                        <span>Welcome to UXIDONE</span>
-                    </div>
-                    <p>You are using a modern system.</p>
-                    
-                    ${legacyStatus}
-                    
-                    <div class="support-schedule">
-                        <p><strong>Legacy Windows support schedule:</strong></p>
-                        <ul>
-                            <li>Original support until: June 22, 2025 18:32</li>
-                            <li>Temporary support: June 23, 2025 07:05-15:25</li>
-                        </ul>
-                    </div>
-                    
-                    <button class="button modern-button" onclick="showMainSite()">Continue to Main Site</button>
-                </div>
-            `;
-        }
-
-        // Show main site content
-        function showMainSite() {
-            applyModernStyling();
-            
-            document.getElementById('mainContent').innerHTML = `
-                <div class="window modern-window">
-                    <div class="window-title modern-title">
-                        <span>UXIDONE Main Portal</span>
-                    </div>
-                    
-                    <p>Welcome to the main UXIDONE portal.</p>
-                    
-                    <div class="countdown modern-countdown" id="mainSiteCountdown">
-                        Current time: ${new Date().toLocaleString()}
-                    </div>
-                    
-                    <div class="message modern-message">
-                        <p>This is the primary site for modern systems.</p>
-                        <p>Legacy Windows support follows the published schedule.</p>
-                    </div>
-                    
-                    <button class="button modern-button" onclick="checkAccess()">Check Legacy Status</button>
-                </div>
-            `;
-            
-            // Update clock every second
-            setInterval(() => {
-                document.getElementById('mainSiteCountdown').textContent = 
-                    `Current time: ${new Date().toLocaleString()}`;
-            }, 1000);
-        }
-
-        // Check access and show appropriate content
-        function checkAccess() {
-            if (isLegacyWindows()) {
-                showLegacyPortal();
-            } else {
-                showModernSite();
-            }
-        }
-
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', checkAccess);
+            // Check maintenance every minute
+            setInterval(checkMaintenance, 60000);
+        });
     </script>
 </body>
 </html>
