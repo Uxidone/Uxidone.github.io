@@ -3,648 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UXIDONE | CyberFuture Portal</title>
+    <title>UXIDONE Portal System</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <style>
         :root {
-            --neon-blue: #0ff0fc;
-            --neon-purple: #9600ff;
-            --neon-pink: #ff00ff;
-            --neon-green: #00ff88;
-            --neon-yellow: #f5d90a;
-            --neon-red: #ff3333;
-            --dark-bg: #0a0a12;
-            --darker-bg: #050508;
-            --grid-color: rgba(15, 240, 252, 0.05);
-        }
-        
-        @font-face {
-            font-family: 'Cyber';
-            src: url('https://fonts.cdnfonts.com/css/cyberpunk-is-not-dead') format('woff2');
-            font-weight: normal;
-        }
-        
-        @font-face {
-            font-family: 'Digital';
-            src: url('https://fonts.cdnfonts.com/css/digital-numbers') format('woff2');
+            --xp-blue: #0080ff;
+            --xp-green: #00aa44;
+            --xp-gray: #c0c0c0;
+            --xp-dark: #0a246a;
+            --xp-light: #e6e6e6;
+            --modern-blue: #2563eb;
+            --modern-dark: #0f172a;
         }
         
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--dark-bg);
-            color: white;
-            font-family: 'Cyber', 'Courier New', monospace;
-            overflow-x: hidden;
-            background-image: 
-                linear-gradient(var(--grid-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-            background-size: 30px 30px;
+            font-family: 'Tahoma', 'Arial', sans-serif;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        /* Legacy XP Styling */
+        .legacy-style {
+            background-color: var(--xp-dark);
+            color: black;
+            background-image: 
+                linear-gradient(rgba(0, 128, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 128, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
         
-        .cyber-border {
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 10px var(--neon-blue),
-                        inset 0 0 10px var(--neon-blue);
+        /* Modern Styling */
+        .modern-style {
+            background-color: var(--modern-dark);
+            color: white;
         }
         
         .header {
+            padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 3rem;
-            background-color: rgba(10, 10, 18, 0.8);
-            backdrop-filter: blur(5px);
-            border-bottom: 1px solid var(--neon-purple);
+        }
+        
+        .legacy-header {
+            background-color: var(--xp-blue);
+            border-bottom: 3px solid var(--xp-green);
+        }
+        
+        .modern-header {
+            background-color: var(--modern-blue);
         }
         
         .logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 10px;
         }
         
         .logo-img {
             height: 40px;
-            filter: drop-shadow(0 0 5px var(--neon-blue)) 
-                   drop-shadow(0 0 10px var(--neon-purple));
-            animation: pulse 2s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
         }
         
         .logo-text {
-            font-size: 1.8rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(150, 0, 255, 0.5);
+            font-size: 24px;
+            font-weight: bold;
         }
         
-        .main-container {
-            min-height: calc(100vh - 240px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            text-align: center;
+        .legacy-logo-text {
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 3px;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            max-width: 700px;
-            line-height: 1.6;
-            text-shadow: 0 0 5px rgba(15, 240, 252, 0.5);
-        }
-        
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        
-        .cyber-button {
-            padding: 1rem 2rem;
-            background: transparent;
-            color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
-            font-family: 'Cyber', monospace;
-            font-size: 1.1rem;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            z-index: 1;
-        }
-        
-        .cyber-button:hover {
-            background: rgba(15, 240, 252, 0.1);
-            box-shadow: 0 0 10px var(--neon-blue),
-                        0 0 20px var(--neon-blue),
-                        inset 0 0 10px var(--neon-blue);
+        .modern-logo-text {
             color: white;
         }
         
-        .cyber-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(15, 240, 252, 0.4), transparent);
-            transition: 0.5s;
-            z-index: -1;
-        }
-        
-        .cyber-button:hover::before {
-            left: 100%;
-        }
-        
-        .btn-primary {
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
-        }
-        
-        .btn-secondary {
-            border-color: var(--neon-purple);
-            color: var(--neon-purple);
-        }
-        
-        .btn-warning {
-            border-color: var(--neon-yellow);
-            color: var(--neon-yellow);
-        }
-        
-        .btn-danger {
-            border-color: var(--neon-red);
-            color: var(--neon-red);
-        }
-        
-        .btn-success {
-            border-color: var(--neon-green);
-            color: var(--neon-green);
-        }
-        
-        .access-denied {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(5, 5, 8, 0.95);
+        .main-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            padding: 20px;
+        }
+        
+        .window {
+            padding: 15px;
+            max-width: 600px;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .xp-window {
+            background-color: var(--xp-gray);
+            border: 3px solid;
+            border-top-color: white;
+            border-left-color: white;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+        }
+        
+        .modern-window {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--modern-blue);
             backdrop-filter: blur(5px);
         }
         
-        .denied-text {
-            color: var(--neon-pink);
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            text-shadow: 0 0 10px var(--neon-pink);
-            animation: glitch 1s linear infinite;
+        .window-title {
+            padding: 5px 10px;
+            font-weight: bold;
+            margin: -15px -15px 15px -15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        @keyframes glitch {
-            0%, 100% { 
-                text-shadow: 0 0 10px var(--neon-pink);
-                transform: translate(0);
-            }
-            20% { 
-                text-shadow: -5px -5px 10px var(--neon-blue);
-                transform: translate(-2px, 2px);
-            }
-            40% { 
-                text-shadow: 5px 5px 10px var(--neon-purple);
-                transform: translate(2px, -2px);
-            }
-            60% { 
-                text-shadow: -5px 5px 10px var(--neon-blue);
-                transform: translate(2px, 2px);
-            }
-            80% { 
-                text-shadow: 5px -5px 10px var(--neon-purple);
-                transform: translate(-2px, -2px);
-            }
+        .xp-title {
+            background-color: var(--xp-blue);
+            color: white;
+        }
+        
+        .modern-title {
+            background-color: var(--modern-blue);
+            color: white;
+        }
+        
+        .button {
+            padding: 5px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .xp-button {
+            background-color: var(--xp-gray);
+            border: 2px solid;
+            border-top-color: white;
+            border-left-color: white;
+            border-right-color: #808080;
+            border-bottom-color: #808080;
+            color: black;
+        }
+        
+        .xp-button:hover {
+            background-color: var(--xp-light);
+        }
+        
+        .xp-button:active {
+            border-top-color: #808080;
+            border-left-color: #808080;
+            border-right-color: white;
+            border-bottom-color: white;
+        }
+        
+        .modern-button {
+            background-color: var(--modern-blue);
+            border: none;
+            color: white;
+            border-radius: 4px;
+        }
+        
+        .modern-button:hover {
+            background-color: #1d4ed8;
         }
         
         .countdown {
-            font-size: 1.5rem;
-            color: var(--neon-blue);
-            margin: 2rem 0;
-            font-family: 'Digital', 'Courier New', monospace;
-            letter-spacing: 2px;
-            padding: 1rem 2rem;
-            border: 1px solid var(--neon-blue);
-            box-shadow: 0 0 15px var(--neon-blue);
-            background-color: rgba(5, 5, 8, 0.7);
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            margin: 15px 0;
+            padding: 10px;
         }
         
-        .matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
+        .xp-countdown {
+            color: var(--xp-blue);
+            background-color: white;
+            border: 2px solid var(--xp-blue);
+        }
+        
+        .modern-countdown {
+            color: white;
+            background-color: rgba(37, 99, 235, 0.3);
+            border: 1px solid var(--modern-blue);
+        }
+        
+        .message {
+            padding: 10px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .xp-message {
+            background-color: var(--xp-light);
+            border: 2px solid var(--xp-blue);
+        }
+        
+        .modern-message {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--modern-blue);
         }
         
         .footer {
-            background-color: rgba(10, 10, 18, 0.8);
-            padding: 2rem;
+            padding: 10px;
+            font-size: 12px;
+            color: white;
             text-align: center;
-            border-top: 1px solid var(--neon-purple);
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
         
-        .copyright {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+        .xp-footer {
+            background-color: var(--xp-blue);
         }
         
-        .copyright-logo {
-            height: 30px;
-            filter: drop-shadow(0 0 5px var(--neon-green));
+        .modern-footer {
+            background-color: var(--modern-blue);
         }
         
-        .copyright-text {
-            font-size: 0.9rem;
-            color: var(--neon-green);
-            text-shadow: 0 0 5px var(--neon-green);
-        }
-        
-        .legal-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .legal-link {
-            color: var(--neon-blue);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-            position: relative;
-        }
-        
-        .legal-link:hover {
-            color: var(--neon-pink);
-            text-shadow: 0 0 5px var(--neon-pink);
-        }
-        
-        .legal-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--neon-pink);
-            transition: width 0.3s;
-        }
-        
-        .legal-link:hover::after {
-            width: 100%;
-        }
-        
-        .info-panel {
-            background-color: rgba(5, 5, 8, 0.7);
-            border: 1px solid var(--neon-purple);
-            box-shadow: 0 0 15px var(--neon-purple);
-            padding: 2rem;
-            margin: 2rem 0;
-            max-width: 800px;
+        .support-schedule {
             text-align: left;
-            line-height: 1.6;
-        }
-        
-        .info-panel h2 {
-            color: var(--neon-blue);
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--neon-purple);
-            padding-bottom: 0.5rem;
-        }
-        
-        .info-panel p {
-            margin-bottom: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .header {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .logo-text {
-                font-size: 1.5rem;
-            }
-            
-            .countdown {
-                font-size: 1.2rem;
-                padding: 0.8rem 1.5rem;
-            }
-            
-            .legal-links {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .button-group {
-                flex-direction: column;
-                align-items: center;
-            }
+            margin-left: 20px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
-<body>
-    <div id="particles-js"></div>
-    <canvas id="matrix-rain" class="matrix-rain"></canvas>
-    
-    <header class="header cyber-border">
+<body id="bodyElement">
+    <div class="header" id="headerElement">
         <div class="logo">
             <img src="/favicon.ico" alt="UXIDONE Logo" class="logo-img">
-            <span class="logo-text">UXIDONE</span>
-        </div>
-    </header>
-    
-    <main class="main-container">
-        <h1>CYBERFUTURE PORTAL</h1>
-        <p class="subtitle">Welcome to the next evolution of digital interaction. This platform is optimized for modern systems with scheduled legacy support windows.</p>
-        
-        <div class="info-panel">
-            <h2>⚠️ SYSTEM NOTICE</h2>
-            <p>This website utilizes cutting-edge web technologies that may not be fully compatible with legacy operating systems. Windows XP users may access the legacy portal during designated support windows.</p>
-            <p>Full compatibility is guaranteed for Windows 10/11, macOS 11+, and modern Linux distributions.</p>
-        </div>
-        
-        <div class="button-group">
-            <button class="cyber-button btn-primary" id="enterSite">ENTER PORTAL</button>
-            <button class="cyber-button btn-secondary" id="learnMore">SYSTEM SPECS</button>
-            <button class="cyber-button btn-warning" id="supportBtn">SUPPORT</button>
-            <button class="cyber-button btn-success" id="downloadBtn">DOWNLOADS</button>
-            <button class="cyber-button btn-danger" id="emergencyBtn">EMERGENCY</button>
-        </div>
-        
-        <div class="info-panel">
-            <h2>🕒 LEGACY SUPPORT SCHEDULE</h2>
-            <p>Windows XP support is available during the following periods:</p>
-            <ul>
-                <li>Until <strong>June 22, 2025, 18:32 UTC</strong></li>
-                <li>Temporary access: <strong>June 23, 2025, 07:05 - 15:23 UTC</strong></li>
-            </ul>
-            <p>After June 23, 2025, 19:12 UTC, the legacy portal will be permanently deactivated.</p>
-        </div>
-    </main>
-    
-    <footer class="footer">
-        <div class="copyright">
-            <img src="/favicon.ico" alt="Copyright Logo" class="copyright-logo">
-            <span class="copyright-text">© 2024-2025 Uxidone Corporation. All rights reserved.</span>
-        </div>
-        <div class="legal-links">
-            <a href="#" class="legal-link">Terms of Service</a>
-            <a href="#" class="legal-link">Privacy Policy</a>
-            <a href="#" class="legal-link">Legal Notice</a>
-            <a href="#" class="legal-link">Compliance</a>
-            <a href="#" class="legal-link">Contact</a>
-        </div>
-    </footer>
-    
-    <div id="accessDenied" class="access-denied" style="display: none;">
-        <div class="denied-text">ACCESS RESTRICTED</div>
-        <p>Your system does not meet minimum requirements</p>
-        <div id="xpRedirectNotice" style="display: none;">
-            <p>Windows XP users may access the legacy portal until:</p>
-            <div class="countdown" id="xpCountdown"></div>
-            <button class="cyber-button" id="legacyPortalBtn">ENTER LEGACY PORTAL</button>
-        </div>
-        <div class="copyright" style="margin-top: 2rem;">
-            <img src="/favicon.ico" alt="Copyright Logo" class="copyright-logo">
-            <span class="copyright-text">© 2024-2025 Uxidone Corporation. All rights reserved.</span>
+            <span class="logo-text" id="logoTextElement">UXIDONE Portal</span>
         </div>
     </div>
     
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <div class="main-content" id="mainContent">
+        <!-- Content will be dynamically loaded -->
+    </div>
+    
+    <div class="footer" id="footerElement">
+        © 2024-2025 Uxidone Corporation. All rights reserved.
+    </div>
+
     <script>
-        // Enhanced OS detection with XP-specific handling
-        function getWindowsVersion() {
+        // Detect legacy Windows versions (95 to XP)
+        function isLegacyWindows() {
             const userAgent = navigator.userAgent;
-            const versionMap = {
-                "Windows NT 10.0": "Windows 10",
-                "Windows NT 6.3": "Windows 8.1",
-                "Windows NT 6.2": "Windows 8",
-                "Windows NT 6.1": "Windows 7",
-                "Windows NT 6.0": "Windows Vista",
-                "Windows NT 5.1": "Windows XP",
-                "Windows NT 5.0": "Windows 2000",
-                "Windows 98": "Windows 98",
-                "Windows 95": "Windows 95"
-            };
-            
-            for (const [key, value] of Object.entries(versionMap)) {
-                if (userAgent.includes(key)) return value;
-            }
-            
-            return "Unknown";
+            return userAgent.includes("Windows NT 5.1") ||  // XP
+                   userAgent.includes("Windows NT 5.0") ||  // 2000
+                   userAgent.includes("Windows 98") || 
+                   userAgent.includes("Windows 95");
         }
-        
-        // Matrix rain effect for XP users
-        function initMatrixRain() {
-            const canvas = document.getElementById('matrix-rain');
-            const ctx = canvas.getContext('2d');
-            
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            
-            const katakana = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-            const alphabet = katakana + latin + nums + symbols;
-            
-            const fontSize = 16;
-            const columns = canvas.width / fontSize;
-            const rainDrops = [];
-            
-            for (let x = 0; x < columns; x++) {
-                rainDrops[x] = {
-                    y: Math.random() * -100,
-                    speed: 2 + Math.random() * 5,
-                    length: 10 + Math.floor(Math.random() * 20)
-                };
-            }
-            
-            const draw = () => {
-                ctx.fillStyle = 'rgba(5, 5, 8, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                ctx.fillStyle = var(--neon-green);
-                ctx.font = `bold ${fontSize}px monospace`;
-                
-                for (let i = 0; i < rainDrops.length; i++) {
-                    const drop = rainDrops[i];
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    
-                    // Draw main character brighter
-                    ctx.fillStyle = var(--neon-green);
-                    ctx.fillText(text, i * fontSize, drop.y * fontSize);
-                    
-                    // Draw trail characters dimmer
-                    for (let j = 1; j < drop.length; j++) {
-                        const trailChar = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                        const alpha = 0.5 * (1 - j/drop.length);
-                        ctx.fillStyle = `rgba(0, 255, 136, ${alpha})`;
-                        ctx.fillText(trailChar, i * fontSize, (drop.y - j) * fontSize);
-                    }
-                    
-                    // Reset drop when it reaches bottom
-                    if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
-                        rainDrops[i] = {
-                            y: Math.random() * -100,
-                            speed: 2 + Math.random() * 5,
-                            length: 10 + Math.floor(Math.random() * 20)
-                        };
-                    }
-                    drop.y += drop.speed / 10;
-                }
-            };
-            
-            setInterval(draw, 30);
-        }
-        
-        // Initialize particle.js
-        function initParticles() {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { 
-                        value: 80, 
-                        density: { 
-                            enable: true, 
-                            value_area: 800 
-                        } 
-                    },
-                    color: { 
-                        value: "#0ff0fc",
-                        animation: {
-                            enable: true,
-                            speed: 10,
-                            sync: true
-                        }
-                    },
-                    shape: { 
-                        type: "circle",
-                        stroke: {
-                            width: 0,
-                            color: "#000000"
-                        }
-                    },
-                    opacity: { 
-                        value: 0.5, 
-                        random: true,
-                        animation: {
-                            enable: true,
-                            speed: 1,
-                            minimumValue: 0.1,
-                            sync: false
-                        }
-                    },
-                    size: { 
-                        value: 3, 
-                        random: true,
-                        animation: {
-                            enable: true,
-                            speed: 2,
-                            minimumValue: 1,
-                            sync: false
-                        }
-                    },
-                    line_linked: { 
-                        enable: true, 
-                        distance: 150, 
-                        color: "#0ff0fc", 
-                        opacity: 0.2, 
-                        width: 1 
-                    },
-                    move: { 
-                        enable: true, 
-                        speed: 2, 
-                        direction: "none", 
-                        random: true, 
-                        straight: false, 
-                        out_mode: "out",
-                        attract: {
-                            enable: true,
-                            rotateX: 600,
-                            rotateY: 1200
-                        }
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: { 
-                            enable: true, 
-                            mode: "grab",
-                            parallax: {
-                                enable: true,
-                                force: 30,
-                                smooth: 10
-                            }
-                        },
-                        onclick: { 
-                            enable: true, 
-                            mode: "push",
-                            push: {
-                                particles_nb: 4
-                            }
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Format countdown timer with days, hours, minutes, seconds
+
+        // Format countdown timer
         function formatCountdown(endTime) {
             const now = new Date();
             const diff = endTime - now;
@@ -656,108 +264,166 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
             
-            return `${days.toString().padStart(2, '0')}d ${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+            return `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
-        
-        // Check XP access permissions
-        function checkXPAccess() {
-            const version = getWindowsVersion();
-            const isXP = version === "Windows XP";
-            const shutdownTime = new Date(2025, 5, 23, 19, 12, 0); // June 23, 2025 19:12
+
+        // Apply legacy styling
+        function applyLegacyStyling() {
+            document.getElementById('bodyElement').className = 'legacy-style';
+            document.getElementById('headerElement').className = 'header legacy-header';
+            document.getElementById('logoTextElement').className = 'logo-text legacy-logo-text';
+            document.getElementById('footerElement').className = 'footer xp-footer';
+        }
+
+        // Apply modern styling
+        function applyModernStyling() {
+            document.getElementById('bodyElement').className = 'modern-style';
+            document.getElementById('headerElement').className = 'header modern-header';
+            document.getElementById('logoTextElement').className = 'logo-text modern-logo-text';
+            document.getElementById('footerElement').className = 'footer modern-footer';
+        }
+
+        // Show legacy portal
+        function showLegacyPortal() {
+            applyLegacyStyling();
             
-            if (isXP) {
-                const now = new Date();
-                const accessDenied = document.getElementById('accessDenied');
-                const xpRedirect = document.getElementById('xpRedirectNotice');
-                const xpCountdown = document.getElementById('xpCountdown');
-                const legacyBtn = document.getElementById('legacyPortalBtn');
-                
-                accessDenied.style.display = 'flex';
-                document.getElementById('mainContent').style.display = 'none';
-                
-                if (now < shutdownTime) {
-                    xpRedirect.style.display = 'block';
-                    
-                    // Update countdown
-                    const updateCountdown = () => {
-                        const timeLeft = shutdownTime - new Date();
-                        xpCountdown.textContent = formatCountdown(shutdownTime);
-                        
-                        if (timeLeft <= 0) {
-                            clearInterval(countdownInterval);
-                            xpCountdown.textContent = "LEGACY ACCESS TERMINATED";
-                            legacyBtn.disabled = true;
-                            legacyBtn.style.opacity = '0.5';
-                            legacyBtn.style.cursor = 'not-allowed';
-                        }
-                    };
-                    
-                    updateCountdown();
-                    const countdownInterval = setInterval(updateCountdown, 1000);
-                    
-                    legacyBtn.onclick = () => {
-                        window.location.href = 'https://uxidone.github.io/windowsxpsite';
-                    };
-                } else {
-                    xpRedirect.style.display = 'none';
-                    document.querySelector('.denied-text').textContent = 'LEGACY ACCESS TERMINATED';
-                    document.querySelector('.denied-text').style.animation = 'none';
-                    document.querySelector('.denied-text').style.color = '#ff5555';
-                }
-                
-                initMatrixRain();
+            const now = new Date();
+            const originalEnd = new Date(2025, 5, 22, 18, 32, 0); // June 22 2025 18:32
+            const tempSupportStart = new Date(2025, 5, 23, 7, 5, 0); // June 23 2025 07:05
+            const tempSupportEnd = new Date(2025, 5, 23, 15, 25, 0); // June 23 2025 15:25
+            
+            let content = '';
+            
+            if (now < originalEnd) {
+                // Original support period
+                content = `
+                    <div class="window xp-window">
+                        <div class="window-title xp-title">
+                            <span>Legacy Support Active</span>
+                        </div>
+                        <p>Windows 95-XP support available until:</p>
+                        <div class="countdown xp-countdown">
+                            ${originalEnd.toLocaleString()}
+                        </div>
+                        <p>After this time, support will be temporarily unavailable until June 23.</p>
+                        <button class="button xp-button" onclick="window.location.href='https://uxidone.github.io/windowsxpsite'">Enter Legacy Portal</button>
+                    </div>
+                `;
+            }
+            else if (now >= tempSupportStart && now <= tempSupportEnd) {
+                // Temporary support window - redirect immediately
+                window.location.href = "https://uxidone.github.io/windowsxpsite";
+                return;
+            }
+            else {
+                // Outside support windows
+                content = `
+                    <div class="window xp-window">
+                        <div class="window-title xp-title">
+                            <span>Legacy Support Unavailable</span>
+                        </div>
+                        <div class="message xp-message">
+                            Windows 95-XP support is currently offline
+                        </div>
+                        ${now < tempSupportStart ? 
+                            `<p>Support will be available again on June 23, 2025 between 07:05-15:25.</p>
+                             <div class="countdown xp-countdown">
+                                Time until temporary support: ${formatCountdown(tempSupportStart)}
+                             </div>` : 
+                            `<p>Final support period ended at June 23, 2025 15:25.</p>
+                             <p>Legacy Windows support has been permanently removed.</p>`}
+                    </div>
+                `;
+            }
+            
+            document.getElementById('mainContent').innerHTML = content;
+        }
+
+        // Show modern site
+        function showModernSite() {
+            applyModernStyling();
+            
+            const originalEnd = new Date(2025, 5, 22, 18, 32, 0);
+            const tempSupportStart = new Date(2025, 5, 23, 7, 5, 0);
+            const tempSupportEnd = new Date(2025, 5, 23, 15, 25, 0);
+            const now = new Date();
+            
+            let legacyStatus = '';
+            if (now < originalEnd) {
+                legacyStatus = `<div class="countdown modern-countdown">Legacy support ends in: ${formatCountdown(originalEnd)}</div>`;
+            } else if (now >= tempSupportStart && now <= tempSupportEnd) {
+                legacyStatus = `<div class="message modern-message">Legacy support temporarily active until 15:25</div>`;
+            } else if (now > tempSupportEnd) {
+                legacyStatus = `<div class="message modern-message">Legacy Windows support has ended</div>`;
             } else {
-                initParticles();
+                legacyStatus = `<div class="countdown modern-countdown">Temporary legacy support in: ${formatCountdown(tempSupportStart)}</div>`;
+            }
+            
+            document.getElementById('mainContent').innerHTML = `
+                <div class="window modern-window">
+                    <div class="window-title modern-title">
+                        <span>Welcome to UXIDONE</span>
+                    </div>
+                    <p>You are using a modern system.</p>
+                    
+                    ${legacyStatus}
+                    
+                    <div class="support-schedule">
+                        <p><strong>Legacy Windows support schedule:</strong></p>
+                        <ul>
+                            <li>Original support until: June 22, 2025 18:32</li>
+                            <li>Temporary support: June 23, 2025 07:05-15:25</li>
+                        </ul>
+                    </div>
+                    
+                    <button class="button modern-button" onclick="showMainSite()">Continue to Main Site</button>
+                </div>
+            `;
+        }
+
+        // Show main site content
+        function showMainSite() {
+            applyModernStyling();
+            
+            document.getElementById('mainContent').innerHTML = `
+                <div class="window modern-window">
+                    <div class="window-title modern-title">
+                        <span>UXIDONE Main Portal</span>
+                    </div>
+                    
+                    <p>Welcome to the main UXIDONE portal.</p>
+                    
+                    <div class="countdown modern-countdown" id="mainSiteCountdown">
+                        Current time: ${new Date().toLocaleString()}
+                    </div>
+                    
+                    <div class="message modern-message">
+                        <p>This is the primary site for modern systems.</p>
+                        <p>Legacy Windows support follows the published schedule.</p>
+                    </div>
+                    
+                    <button class="button modern-button" onclick="checkAccess()">Check Legacy Status</button>
+                </div>
+            `;
+            
+            // Update clock every second
+            setInterval(() => {
+                document.getElementById('mainSiteCountdown').textContent = 
+                    `Current time: ${new Date().toLocaleString()}`;
+            }, 1000);
+        }
+
+        // Check access and show appropriate content
+        function checkAccess() {
+            if (isLegacyWindows()) {
+                showLegacyPortal();
+            } else {
+                showModernSite();
             }
         }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            checkXPAccess();
-            
-            // Button event handlers
-            document.getElementById('enterSite').onclick = function() {
-                alert("Redirecting to main portal...");
-                // window.location.href = "/main";
-            };
-            
-            document.getElementById('learnMore').onclick = function() {
-                alert("Displaying system specifications...");
-                // window.location.href = "/specs";
-            };
-            
-            document.getElementById('supportBtn').onclick = function() {
-                alert("Opening support page...");
-                // window.location.href = "/support";
-            };
-            
-            document.getElementById('downloadBtn').onclick = function() {
-                alert("Accessing downloads...");
-                // window.location.href = "/downloads";
-            };
-            
-            document.getElementById('emergencyBtn').onclick = function() {
-                alert("⚠️ Emergency protocol activated!");
-                // window.location.href = "/emergency";
-            };
-            
-            // Make copyright logo pulse
-            const copyrightLogo = document.querySelector('.copyright-logo');
-            if (copyrightLogo) {
-                setInterval(() => {
-                    copyrightLogo.style.filter = `drop-shadow(0 0 ${5 + Math.random() * 5}px var(--neon-green))`;
-                }, 2000);
-            }
-        });
-        
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            const canvas = document.getElementById('matrix-rain');
-            if (canvas) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }
-        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', checkAccess);
     </script>
 </body>
 </html>
