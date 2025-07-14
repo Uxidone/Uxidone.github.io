@@ -3,302 +3,610 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UXIDONE Portal</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <title>Uxidone | Quantum AI Platform</title>
+    <link rel="icon" href="https://uxidone.github.io/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
+        /* ===== Quantum Design System ===== */
         :root {
-            --uxidone-purple: #6a0dad;
-            --uxidone-light: #9c27b0;
-            --uxidone-dark: #4b0082;
-            --uxidone-accent: #e1bee7;
-            --text-light: #f3e5f5;
-            --text-dark: #4a148c;
+            /* Quantum Color Spectrum */
+            --quantum-core: #6a0dad;
+            --quantum-pulse: #9d4edd;
+            --quantum-shift: #c77dff;
+            --quantum-void: #0a001a;
+            --quantum-matrix: #00ff88;
+            --quantum-haze: rgba(157, 78, 221, 0.15);
+            --quantum-glow: 0 0 25px rgba(157, 78, 221, 0.7);
+            
+            /* Neural Network Grid */
+            --grid-size: 50px;
+            --grid-color: rgba(157, 78, 221, 0.05);
+            
+            /* Temporal Dimensions */
+            --transition-quick: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            
+            /* Interface Depth */
+            --depth-1: 0 1px 3px rgba(0,0,0,0.12);
+            --depth-2: 0 4px 6px rgba(0,0,0,0.16);
+            --depth-3: 0 10px 25px rgba(0,0,0,0.2);
         }
-        
-        body {
+
+        /* ===== Quantum Reset ===== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
-        
-        /* Maintenance Overlay */
-        .maintenance-overlay {
+
+        /* ===== Core Interface ===== */
+        body {
+            font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 
+                        'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 
+                        sans-serif;
+            color: rgba(255, 255, 255, 0.9);
+            background-color: var(--quantum-void);
+            line-height: 1.7;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+
+        @supports (font-variation-settings: normal) {
+            body {
+                font-family: 'Rajdhani', sans-serif;
+                font-variation-settings: 'wght' 400;
+            }
+        }
+
+        /* ===== Quantum Grid Network ===== */
+        .quantum-grid {
             position: fixed;
             top: 0;
             left: 0;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: var(--grid-size) var(--grid-size);
+            animation: gridScroll 40s linear infinite;
+            z-index: -3;
+            pointer-events: none;
+            transform: rotateX(75deg) translateZ(-500px);
+            opacity: 0.6;
+        }
+
+        /* ===== Quantum Header ===== */
+        .quantum-header {
+            position: fixed;
+            top: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(106, 13, 173, 0.9);
-            color: var(--text-light);
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            text-align: center;
-        }
-        
-        .maintenance-code {
-            font-size: 5rem;
-            font-weight: bold;
-            margin: 0;
-            color: white;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-        
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--uxidone-dark), var(--uxidone-purple));
-            color: var(--text-light);
-            padding: 1rem 2rem;
+            backdrop-filter: blur(12px);
+            background: rgba(10, 0, 26, 0.7);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.2);
+            padding: 1.25rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: var(--transition-smooth);
         }
-        
-        .logo {
+
+        .quantum-header.scrolled {
+            padding: 0.75rem 5%;
+            background: rgba(10, 0, 26, 0.9);
+            box-shadow: var(--depth-2);
+        }
+
+        /* ===== Quantum Logo ===== */
+        .quantum-brand {
             display: flex;
             align-items: center;
-            gap: 1rem;
-        }
-        
-        .logo-img {
-            height: 40px;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
-        }
-        
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        
-        /* Timer Bar */
-        .timer-bar {
-            background-color: var(--uxidone-dark);
-            color: white;
-            padding: 0.8rem;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        /* Main Content */
-        .main-container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        
-        /* Button Styles */
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-            justify-content: center;
-        }
-        
-        .ux-button {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
+            gap: 0.875rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+        }
+
+        .quantum-logo {
+            height: 2.25rem;
+            filter: drop-shadow(0 0 8px var(--quantum-pulse));
+            transition: var(--transition-quick);
+        }
+
+        .quantum-brand:hover .quantum-logo {
+            transform: rotate(15deg) scale(1.1);
+            filter: drop-shadow(0 0 12px var(--quantum-shift));
+        }
+
+        .quantum-brandname {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #e0aaff, var(--quantum-shift));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1.5px;
+            position: relative;
+        }
+
+        .quantum-brandname::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--quantum-shift), var(--quantum-matrix));
+            transition: var(--transition-smooth);
+        }
+
+        .quantum-brand:hover .quantum-brandname::after {
+            width: 100%;
+        }
+
+        /* ===== Quantum Navigation ===== */
+        .quantum-nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .quantum-nav-item {
+            position: relative;
+        }
+
+        .quantum-nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: var(--transition-quick);
+        }
+
+        .quantum-nav-link:hover {
+            color: white;
+            text-shadow: 0 0 8px var(--quantum-shift);
+        }
+
+        .quantum-nav-link::before {
+            content: '[';
+            position: absolute;
+            left: -12px;
+            color: var(--quantum-matrix);
+            opacity: 0;
+            transition: var(--transition-quick);
+        }
+
+        .quantum-nav-link::after {
+            content: ']';
+            position: absolute;
+            right: -12px;
+            color: var(--quantum-matrix);
+            opacity: 0;
+            transition: var(--transition-quick);
+        }
+
+        .quantum-nav-link:hover::before,
+        .quantum-nav-link:hover::after {
+            opacity: 1;
+        }
+
+        /* ===== Quantum Hero ===== */
+        .quantum-hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .ux-button-primary {
-            background-color: var(--uxidone-purple);
+
+        .quantum-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin-top: 5rem;
+        }
+
+        .quantum-hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #e0aaff, var(--quantum-shift), #9d4edd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--quantum-glow);
+        }
+
+        .quantum-hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--quantum-pulse), var(--quantum-matrix));
+            border-radius: 2px;
+        }
+
+        .quantum-hero-text {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        /* ===== Quantum Buttons ===== */
+        .quantum-btn-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .quantum-btn {
+            position: relative;
+            padding: 1rem 2.25rem;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            overflow: hidden;
+            border: none;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        .quantum-btn-primary {
+            background: linear-gradient(135deg, var(--quantum-core), var(--quantum-pulse));
             color: white;
+            box-shadow: 0 5px 25px rgba(157, 78, 221, 0.4);
         }
-        
-        .ux-button-primary:hover {
-            background-color: var(--uxidone-light);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(106, 13, 173, 0.3);
+
+        .quantum-btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(157, 78, 221, 0.6);
         }
-        
-        .ux-button-secondary {
-            background-color: var(--uxidone-accent);
-            color: var(--text-dark);
+
+        .quantum-btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
-        
-        .ux-button-secondary:hover {
-            background-color: #d1c4e9;
-            transform: translateY(-2px);
+
+        .quantum-btn-primary:hover::before {
+            left: 100%;
         }
-        
-        .ux-button-warning {
-            background-color: #ff9800;
+
+        .quantum-btn-secondary {
+            background: transparent;
+            color: #e0aaff;
+            border: 2px solid var(--quantum-pulse);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+        }
+
+        .quantum-btn-secondary:hover {
+            background: rgba(157, 78, 221, 0.15);
             color: white;
+            border-color: var(--quantum-matrix);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
         }
-        
-        .ux-button-warning:hover {
-            background-color: #fb8c00;
-            transform: translateY(-2px);
+
+        /* ===== Quantum Terminal ===== */
+        .quantum-terminal {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 550px;
+            height: 350px;
+            background: rgba(15, 5, 35, 0.7);
+            border: 1px solid rgba(157, 78, 221, 0.4);
+            border-radius: 12px;
+            box-shadow: 
+                0 0 40px rgba(157, 78, 221, 0.3),
+                inset 0 0 20px rgba(157, 78, 221, 0.2);
+            overflow: hidden;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            transition: var(--transition-smooth);
         }
-        
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: var(--uxidone-dark);
-            color: var(--text-light);
-            margin-top: 2rem;
+
+        .quantum-terminal:hover {
+            transform: translateY(-50%) scale(1.02);
+            box-shadow: 
+                0 0 60px rgba(157, 78, 221, 0.5),
+                inset 0 0 30px rgba(157, 78, 221, 0.3);
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+
+        .terminal-header {
+            height: 40px;
+            background: rgba(157, 78, 221, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(157, 78, 221, 0.2);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .terminal-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-quick);
+        }
+
+        .terminal-dot:nth-child(1) {
+            background: #ff5f56;
+        }
+
+        .terminal-dot:nth-child(2) {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot:nth-child(3) {
+            background: #27c93f;
+        }
+
+        .terminal-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .terminal-body {
+            padding: 25px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: var(--quantum-matrix);
+            text-shadow: 0 0 8px var(--quantum-matrix);
+            line-height: 1.8;
+            height: calc(100% - 40px);
+            overflow: hidden;
+        }
+
+        .terminal-line {
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--quantum-matrix);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+            box-shadow: 0 0 10px var(--quantum-matrix);
+        }
+
+        /* ===== Quantum Orbs ===== */
+        .quantum-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: #7b2cbf;
+            top: -200px;
+            right: -200px;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #3c096c;
+            bottom: -100px;
+            left: -100px;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes gridScroll {
+            0% { background-position: 0 0; }
+            100% { background-position: var(--grid-size) var(--grid-size); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -30px); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1200px) {
+            .quantum-terminal {
+                display: none;
             }
             
-            .button-group {
-                flex-direction: column;
+            .quantum-hero-content {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .quantum-header {
+                padding: 1rem 5%;
+            }
+            
+            .quantum-nav {
+                display: none;
+            }
+            
+            .quantum-hero {
+                padding: 0 5%;
+                text-align: center;
                 align-items: center;
             }
             
-            .main-container {
-                padding: 1rem;
-                margin: 1rem;
+            .quantum-hero-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .quantum-btn-group {
+                flex-direction: column;
+                width: 100%;
+                gap: 1.5rem;
+            }
+            
+            .quantum-btn {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Maintenance Overlay -->
-    <div class="maintenance-overlay" id="maintenanceOverlay">
-        <h1 class="maintenance-code">403</h1>
-        <h2>Access Denied</h2>
-        <p>The site is currently under maintenance.</p>
-        <p>Please check back later.</p>
-    </div>
+    <!-- Quantum Grid Background -->
+    <div class="quantum-grid"></div>
     
-    <!-- Normal Site Content -->
-    <header class="header">
-        <div class="logo">
-            <img src="/favicon.ico" alt="UXIDONE Logo" class="logo-img">
-            <span class="logo-text">UXIDONE</span>
+    <!-- Quantum Orbs -->
+    <div class="quantum-orb orb-1"></div>
+    <div class="quantum-orb orb-2"></div>
+    
+    <!-- Quantum Header -->
+    <header class="quantum-header">
+        <div class="quantum-brand">
+            <img src="https://uxidone.github.io/favicon.ico" alt="Uxidone Logo" class="quantum-logo">
+            <span class="quantum-brandname">UXIDONE</span>
         </div>
-        <div class="timer-bar" id="timerBar">
-            Windows 95-XP Support: Active (Ends in <span id="supportTimer">--:--:--</span>)
-        </div>
+        
+        <nav class="quantum-nav">
+            <div class="quantum-nav-item"><a href="#" class="quantum-nav-link">SOLUTIONS</a></div>
+            <div class="quantum-nav-item"><a href="#" class="quantum-nav-link">TECHNOLOGY</a></div>
+            <div class="quantum-nav-item"><a href="#" class="quantum-nav-link">CASE STUDIES</a></div>
+            <div class="quantum-nav-item"><a href="#" class="quantum-nav-link">ABOUT</a></div>
+            <div class="quantum-nav-item"><a href="#" class="quantum-nav-link">CONTACT</a></div>
+        </nav>
     </header>
     
-    <div class="main-container">
-        <h1>Welcome to UXIDONE Portal</h1>
-        <p>Experience our platform with full legacy Windows support during designated periods.</p>
-        
-        <div class="button-group">
-            <button class="ux-button ux-button-primary">
-                <span>🏠</span> Home
-            </button>
-            <button class="ux-button ux-button-primary">
-                <span>📁</span> Documents
-            </button>
-            <button class="ux-button ux-button-secondary">
-                <span>⚙️</span> Settings
-            </button>
-            <button class="ux-button ux-button-secondary">
-                <span>👤</span> Profile
-            </button>
-            <button class="ux-button ux-button-warning">
-                <span>🔒</span> Security
-            </button>
-            <button class="ux-button ux-button-warning">
-                <span>🛡️</span> Admin
-            </button>
+    <!-- Quantum Hero -->
+    <main class="quantum-hero">
+        <div class="quantum-hero-content">
+            <h1 class="quantum-hero-title">QUANTUM AI PLATFORM</h1>
+            <p class="quantum-hero-text">
+                Harnessing the power of quantum computing and neural networks to deliver 
+                unprecedented business intelligence and automation capabilities.
+            </p>
+            <div class="quantum-btn-group">
+                <button class="quantum-btn quantum-btn-primary">REQUEST DEMO</button>
+                <button class="quantum-btn quantum-btn-secondary">EXPLORE TECH</button>
+            </div>
         </div>
         
-        <h2>Legacy Support Schedule</h2>
-        <ul>
-            <li>Original support until: June 22, 2025 18:32 UTC</li>
-            <li>Temporary support window: June 23, 2025 07:05-09:45 UTC</li>
-        </ul>
-        <p>After 09:45 UTC on June 23, Windows 95-XP support will be permanently discontinued.</p>
-    </div>
+        <!-- Quantum Terminal -->
+        <div class="quantum-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                    <div class="terminal-dot"></div>
+                </div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">> Initializing Quantum Core v9.2.1...</div>
+                <div class="terminal-line">> Loading neural network modules...</div>
+                <div class="terminal-line">> Establishing quantum entanglement...</div>
+                <div class="terminal-line">> System ready for innovation<span class="terminal-cursor"></span></div>
+            </div>
+        </div>
+    </main>
     
-    <footer class="footer">
-        © 2024-2025 Uxidone Corporation. All rights reserved.
-    </footer>
-
     <script>
-        // Support schedule
-        const originalEnd = new Date(2025, 5, 22, 18, 32, 0); // June 22 2025 18:32
-        const tempSupportStart = new Date(2025, 5, 23, 7, 5, 0); // June 23 2025 07:05
-        const tempSupportEnd = new Date(2025, 5, 23, 9, 45, 0); // June 23 2025 09:45
-        
-        // Check if we should show maintenance (after 9:45 AM)
-        function checkMaintenance() {
-            const now = new Date();
-            
-            // Show maintenance after 9:45 AM on June 23
-            if (now >= tempSupportEnd) {
-                document.getElementById('maintenanceOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.quantum-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-        }
-        
-        // Update the support timer
-        function updateSupportTimer() {
-            const now = new Date();
-            let targetTime, message;
-            
-            if (now < originalEnd) {
-                targetTime = originalEnd;
-                message = "Windows 95-XP Support: Active (Ends in ";
-            } 
-            else if (now >= tempSupportStart && now < tempSupportEnd) {
-                targetTime = tempSupportEnd;
-                message = "Windows 95-XP Support: TEMPORARY (Ends in ";
-            }
-            else {
-                targetTime = null;
-                document.getElementById('timerBar').textContent = 
-                    "Windows 95-XP Support: PERMANENTLY DISCONTINUED";
-                return;
-            }
-            
-            const update = () => {
-                const diff = targetTime - new Date();
-                
-                if (diff <= 0) {
-                    location.reload(); // Refresh when time reaches target
-                    return;
-                }
-                
-                const hours = Math.floor(diff / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                document.getElementById('supportTimer').textContent = 
-                    `${hours}h ${minutes}m ${seconds}s`;
-            };
-            
-            update();
-            setInterval(update, 1000);
-        }
-        
-        // Initialize
+        });
+
+        // Terminal typing effect
         document.addEventListener('DOMContentLoaded', function() {
-            checkMaintenance();
-            updateSupportTimer();
+            const terminalLines = [
+                "> Quantum processors: Online",
+                "> Neural networks: Active",
+                "> System status: Optimal",
+                "> Ready for innovation"
+            ];
             
-            // Check maintenance every minute
-            setInterval(checkMaintenance, 60000);
+            const terminalBody = document.querySelector('.terminal-body');
+            let currentLine = 0;
+            let currentChar = 0;
+            let typingInterval;
+            
+            function typeTerminal() {
+                if (currentLine < terminalLines.length) {
+                    if (currentChar < terminalLines[currentLine].length) {
+                        terminalBody.lastElementChild.innerHTML = 
+                            terminalLines[currentLine].substring(0, currentChar + 1) + 
+                            '<span class="terminal-cursor"></span>';
+                        currentChar++;
+                    } else {
+                        terminalBody.lastElementChild.innerHTML = terminalLines[currentLine];
+                        if (currentLine < terminalLines.length - 1) {
+                            const newLine = document.createElement('div');
+                            newLine.className = 'terminal-line';
+                            terminalBody.appendChild(newLine);
+                        }
+                        currentLine++;
+                        currentChar = 0;
+                    }
+                } else {
+                    clearInterval(typingInterval);
+                }
+            }
+            
+            // Start typing after 1 second
+            setTimeout(() => {
+                typingInterval = setInterval(typeTerminal, 50);
+            }, 1000);
+            
+            // Interactive terminal dots
+            const dots = document.querySelectorAll('.terminal-dot');
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.3)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 300);
+                });
+            });
         });
     </script>
 </body>
