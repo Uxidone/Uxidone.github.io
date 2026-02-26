@@ -3,330 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 // THE GREAT ASCENSION</title>
-    
+    <title>UXIDONE | Design Engineer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Mono&family=Inter:wght@100;400;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg: #000;
-            --accent: #00ffaa;
-            --error-color: #ff003c;
-            --text-dim: rgba(255,255,255,0.4);
-            --glass-border: rgba(255,255,255,0.08);
-            --transition-main: 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --bg: #050505;
+            --surface: #0f1115;
+            --text: #ffffff;
+            --text-muted: #888888;
+            --border: rgba(255, 255, 255, 0.08);
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: none;
+        }
 
         body {
             background-color: var(--bg);
-            color: white;
-            font-family: 'Inter', sans-serif;
+            color: var(--text);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HARDWARE GATEKEEPER (WGL 3.0) --- */
-        #hardware-fail {
-            position: fixed; inset: 0; background: #000; z-index: 99999;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            padding: 50px; text-align: center; font-family: 'Space Mono', monospace;
-        }
-        .fail-tag { color: var(--error-color); font-family: 'Syncopate'; font-size: 2vw; margin-bottom: 20px; }
-        .fail-log { color: #444; font-size: 13px; max-width: 600px; text-align: left; line-height: 1.6; }
-
-        /* --- SYSTEM INTERFACE (HUD) --- */
-        #cursor-main {
-            position: fixed; width: 6px; height: 6px; background: #fff;
-            border-radius: 50%; z-index: 100001; pointer-events: none; mix-blend-mode: difference;
-        }
-        #cursor-ring {
-            position: fixed; width: 40px; height: 40px; border: 1px solid var(--accent);
-            border-radius: 50%; z-index: 100000; pointer-events: none;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .noise-layer {
-            position: fixed; inset: 0; width: 100%; height: 100%; z-index: 99998;
-            opacity: 0.1; pointer-events: none; background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAA1JREFUKM9jGAWjAAYAAAOAAAGv5zFHAAAAAElFTkSuQmCC');
+        /* --- Scroll Progress --- */
+        #progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            z-index: 2000;
+            width: 0%;
         }
 
-        /* --- THE CORE SCROLLER --- */
-        #app-mount { opacity: 0; transition: opacity 2s ease; }
+        /* --- Cursor --- */
+        #cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+        }
 
-        .container { position: relative; width: 100%; }
+        #follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.4s var(--ease), background 0.3s ease;
+        }
 
-        /* Kinetic Hero */
+        /* --- Layout --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4rem;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2.5rem 0;
+            z-index: 1000;
+            transition: all 0.4s var(--ease);
+        }
+
+        nav.scrolled {
+            padding: 1.2rem 0;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: #fff; }
+
+        /* --- Hero --- */
         .hero {
-            height: 150vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; position: relative;
-        }
-        .hero-title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(4rem, 20vw, 25rem);
-            line-height: 0.8; letter-spacing: -1.5vw;
-        }
-        .hero-sub {
-            font-family: 'Space Mono', monospace;
-            letter-spacing: 15px; margin-top: 30px; opacity: 0.4; font-size: 0.8rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
         }
 
-        /* Narrative Chapters (Unique Styles) */
-        .section { min-height: 100vh; padding: 15vh 8vw; position: relative; }
-
-        .chapter-label {
-            font-family: 'Space Mono'; font-size: 10px; color: var(--accent);
-            margin-bottom: 20px; display: block; letter-spacing: 5px;
+        .hero h1 {
+            font-size: clamp(4rem, 10vw, 9rem);
+            font-weight: 800;
+            line-height: 0.85;
+            letter-spacing: -5px;
+            margin-bottom: 2.5rem;
         }
 
-        /* Chapter 01: Analog */
-        .analog-grid {
-            display: grid; grid-template-columns: 1.5fr 1fr; gap: 8vw; align-items: center;
+        .hero h1 span {
+            display: block;
+            color: var(--text-muted);
+            opacity: 0.4;
         }
-        .big-img-box {
-            position: relative; aspect-ratio: 16/10; background: #111;
-            border-radius: 4px; overflow: hidden;
-        }
-        .big-img-box img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: var(--transition-main); }
-        .big-img-box:hover img { filter: grayscale(0); transform: scale(1.05); }
 
-        /* Chapter 02: Information Infinity */
-        .data-stream {
-            display: flex; flex-direction: column; gap: 10vh; margin-top: 10vh;
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
-        .stream-item {
-            font-family: 'Bebas Neue'; font-size: 10vw; line-height: 0.9;
-            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2);
-            transition: color 0.5s;
-        }
-        .stream-item:hover { color: #fff; -webkit-text-stroke: 0; }
 
-        /* Chapter 03: The 2026 Reality */
-        .reality-manifesto {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-            background: var(--glass-border); border: 1px solid var(--glass-border);
+        .hero-desc {
+            max-width: 450px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
         }
-        .feature-box {
-            background: #000; padding: 60px 40px; 
-            transition: background 0.4s;
-        }
-        .feature-box:hover { background: #050505; }
-        .box-num { color: var(--accent); font-family: 'Space Mono'; font-size: 12px; margin-bottom: 20px; display: block; }
-        .box-title { font-family: 'Syncopate'; font-size: 1.5rem; margin-bottom: 20px; }
-        .box-p { font-size: 0.9rem; line-height: 1.8; color: var(--text-dim); }
 
-        /* Timeline Footer */
-        .footer-end {
-            height: 100vh; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; border-top: 1px solid var(--glass-border);
+        /* --- Magnetic Button --- */
+        .mag-btn-wrap {
+            position: relative;
+            display: inline-block;
         }
-        .footer-tag { font-family: 'Syncopate'; opacity: 0.1; font-size: 6vw; letter-spacing: -2px; }
 
+        .btn {
+            padding: 1.2rem 2.8rem;
+            background: #fff;
+            color: #000;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* --- Bento Grid --- */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+            padding-bottom: 10rem;
+        }
+
+        .work-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s var(--ease);
+        }
+
+        .work-card:hover { 
+            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-10px);
+        }
+
+        .card-1 { grid-column: span 7; height: 600px; }
+        .card-2 { grid-column: span 5; height: 600px; }
+        .card-3 { grid-column: span 5; height: 500px; }
+        .card-4 { grid-column: span 7; height: 500px; }
+
+        .work-card .category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .work-card h3 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 1rem;
+        }
+
+        /* --- In-built Visual Assets --- */
+        .asset-container {
+            flex-grow: 1;
+            margin-top: 2rem;
+            border-radius: 20px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-mesh {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, var(--secondary) 0%, transparent 50%);
+            opacity: 0.15;
+            filter: blur(60px);
+            animation: rotateMesh 20s linear infinite;
+        }
+
+        @keyframes rotateMesh {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 10rem 0 4rem;
+            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.05));
+        }
+
+        .footer-cta h2 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            letter-spacing: -4px;
+            line-height: 0.9;
+            margin-bottom: 4rem;
+        }
+
+        .footer-bottom {
+            margin-top: 8rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Animations --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: 1.2s var(--ease);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) {
+            .container { padding: 0 2rem; }
+            .card-1, .card-2, .card-3, .card-4 { grid-column: span 12; height: 500px; }
+            * { cursor: auto !important; }
+            #cursor, #follower { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="hardware-fail">
-        <div class="fail-tag">KERNEL_PANIC: WGL_3_NOT_FOUND</div>
-        <div class="fail-log">
-            > [FATAL ERROR] INCOMPATIBLE GRAPHICS STACK DETECTED.<br>
-            > REQUIRED: WEBGL_2_0 / OPENGL_3_0 SHADER COMPILATION.<br>
-            > ERROR: GPU ARCHITECTURE FAILED INTEGRITY PROBE.<br>
-            > REASON: IGPU/GPU NOT SUPPORTING THE 2026 RENDER_PIPELINE.<br>
-            > [SYSTEM_HALTED]
+    <div id="progress"></div>
+    <div id="cursor"></div>
+    <div id="follower"></div>
+
+    <nav id="navbar">
+        <div class="container nav-content">
+            <a href="#" class="logo">UXIDONE.</a>
+            <ul class="nav-links">
+                <li><a href="#work">Archive</a></li>
+                <li><a href="#about">Philosophy</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
 
-    <div id="cursor-main"></div>
-    <div id="cursor-ring"></div>
-    <div class="noise-layer"></div>
+    <main class="container">
+        <header class="hero">
+            <h1 class="reveal">Digital Architecture<span>Precision-Built.</span></h1>
+            <div class="hero-footer reveal">
+                <p class="hero-desc">Solving complex problems through high-fidelity design and creative engineering. No templates, no bloat, just performance.</p>
+                <div class="mag-btn-wrap">
+                    <a href="#work" class="btn">
+                        Explore Archive <i data-lucide="arrow-down-right"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
 
-    <main id="app-mount">
-        <div class="container">
-            
-            <section class="hero">
-                <div class="hero-sub">ESTABLISHED IN 2026</div>
-                <h1 class="hero-title">2026</h1>
-                <div class="hero-sub" style="opacity: 0.2;">SCROLL TO SYNC</div>
-            </section>
-
-            <section class="section">
-                <span class="chapter-label">01 // THE ROOTS</span>
-                <div class="analog-grid">
-                    <div class="big-img-box">
-                        <img src="https://images.unsplash.com/photo-1510273010699-1099147f28c3?auto=format&fit=crop&w=1200&q=80" alt="Analog">
-                    </div>
-                    <div>
-                        <h2 style="font-size: 4rem; font-family: 'Bebas Neue';">PHYSICAL<br>FOUNDATIONS</h2>
-                        <p style="margin-top: 20px; line-height: 2; color: var(--text-dim);">Before the ascension, reality was bound by the tangible. 2026 marks the moment where we finalized the translation of all physical matter into a synchronized digital state.</p>
+        <section id="work">
+            <div class="work-grid">
+                <!-- Project 1: Built-in UI Illustration -->
+                <div class="work-card card-1 reveal">
+                    <span class="category">System Design / 2026</span>
+                    <h3>The Zenith Core</h3>
+                    <p style="color: var(--text-muted);">A multi-tenant design system for enterprise-scale platforms.</p>
+                    <div class="asset-container">
+                        <div class="gradient-mesh"></div>
+                        <svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="20" width="360" height="200" rx="12" stroke="white" stroke-opacity="0.1" stroke-width="2"/>
+                            <rect x="40" y="40" width="120" height="15" rx="4" fill="white" fill-opacity="0.2"/>
+                            <rect x="40" y="70" width="320" height="130" rx="8" fill="white" fill-opacity="0.05" stroke="white" stroke-opacity="0.1"/>
+                            <circle cx="340" cy="90" r="10" fill="var(--primary)"/>
+                            <rect x="60" y="90" width="100" height="8" rx="2" fill="white" fill-opacity="0.1"/>
+                            <rect x="60" y="110" width="150" height="8" rx="2" fill="white" fill-opacity="0.1"/>
+                        </svg>
                     </div>
                 </div>
-            </section>
 
-            <section class="section">
-                <span class="chapter-label">02 // DATA_RECEPTION</span>
-                <div class="data-stream">
-                    <div class="stream-item">NEURAL_DENSITY</div>
-                    <div class="stream-item">SYNTHETIC_LOGIC</div>
-                    <div class="stream-item">QUANTUM_STABILITY</div>
-                    <div class="stream-item">BEYOND_HORIZON</div>
-                </div>
-            </section>
-
-            <section class="section">
-                <span class="chapter-label">03 // REAL_TIME_INTEGRATION</span>
-                <div class="reality-manifesto">
-                    <div class="feature-box">
-                        <span class="box-num">/01</span>
-                        <h3 class="box-title">SPATIAL</h3>
-                        <p class="box-p">Interfaces are no longer flat. In 2026, the environment is the UI. Digital objects hold physical weight and presence.</p>
-                    </div>
-                    <div class="feature-box">
-                        <span class="box-num">/02</span>
-                        <h3 class="box-title">NEURAL</h3>
-                        <p class="box-p">The keyboard is dead. Intent-based computing allows for the instantaneous translation of thought into action at 0ms latency.</p>
-                    </div>
-                    <div class="feature-box">
-                        <span class="box-num">/03</span>
-                        <h3 class="box-title">FUSION</h3>
-                        <p class="box-p">The barrier between biological and artificial processing has achieved a state of permanent synchronization.</p>
+                <!-- Project 2: Built-in Pattern -->
+                <div class="work-card card-2 reveal">
+                    <span class="category">Mobile / Fintech</span>
+                    <h3>Aura Pay</h3>
+                    <p style="color: var(--text-muted);">Biometric payment flow for the next generation.</p>
+                    <div class="asset-container">
+                        <div class="gradient-mesh" style="background: radial-gradient(circle, var(--secondary), transparent)"></div>
+                        <svg width="150" height="280" viewBox="0 0 150 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="5" y="5" width="140" height="270" rx="25" stroke="white" stroke-opacity="0.2" stroke-width="2"/>
+                            <circle cx="75" cy="140" r="40" stroke="var(--primary)" stroke-width="2" stroke-dasharray="10 5"/>
+                            <path d="M55 140H95" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M75 120V160" stroke="white" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
                     </div>
                 </div>
-            </section>
 
-            <footer class="footer-end">
-                <div class="footer-tag">THE FUTURE IS NORMAL</div>
-                <p style="font-family: 'Space Mono'; font-size: 10px; margin-top: 50px; opacity: 0.3;">© 2026_COLLECTIVE // UXIDONE, 2026_COLLECTIVE is a part of Uxidone among its registered and unregsitered countries ALL_RIGHTS_RESERVED visit 2026_COLLECTIVE by going to 2026collective.github.io/</p>
-            </footer>
+                <!-- Project 3: Data Viz SVG -->
+                <div class="work-card card-3 reveal">
+                    <span class="category">Dashboard / SaaS</span>
+                    <h3>Vortex Analytics</h3>
+                    <div class="asset-container">
+                        <svg width="300" height="150" viewBox="0 0 300 150">
+                            <path d="M10 140 L50 90 L90 110 L130 40 L170 70 L210 20 L290 50" stroke="var(--primary)" stroke-width="4" fill="none"/>
+                            <circle cx="210" cy="20" r="6" fill="white"/>
+                        </svg>
+                    </div>
+                    <h3>Insight Engine</h3>
+                    <p style="color: var(--text-muted);">Visualizing 10M+ data points in real-time.</p>
+                </div>
 
-        </div>
+                <!-- Project 4: Generative Art SVG -->
+                <div class="work-card card-4 reveal">
+                    <span class="category">Experiment / WebGL</span>
+                    <h3>Liquid Geometry</h3>
+                    <div class="asset-container">
+                        <div class="gradient-mesh" style="opacity: 0.3;"></div>
+                        <svg width="400" height="200" viewBox="0 0 400 200">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:var(--primary);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:var(--secondary);stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M0,100 C100,0 300,200 400,100 L400,200 L0,200 Z" fill="url(#grad1)" opacity="0.4"/>
+                            <path d="M0,120 C150,50 250,150 400,120 L400,200 L0,200 Z" fill="url(#grad1)" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <h3>Motion Lab</h3>
+                    <p style="color: var(--text-muted);">Exploring the physics of digital interaction.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="footer-cta">
+                <h2 class="reveal">Let's create the<br>unconventional.</h2>
+                <div class="mag-btn-wrap reveal">
+                    <a href="mailto:hello@uxidone.com" class="btn">Launch Project <i data-lucide="rocket"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>&copy; 2026 UXIDONE ARCHIVE</div>
+                <div style="display: flex; gap: 2rem;">
+                    <a href="#" style="color: inherit; text-decoration: none;">GitHub</a>
+                    <a href="#" style="color: inherit; text-decoration: none;">LinkedIn</a>
+                    <a href="#" style="color: inherit; text-decoration: none;">Twitter</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
-
     <script>
-        /**
-         * 2026 MASTER PRODUCTION LOGIC
-         * Engineered for 120fps smooth performance and hardware verification.
-         */
+        lucide.createIcons();
 
-        // 1. WGL 3.0 HARDWARE PROBE
-        const probeWGL = () => {
-            try {
-                const canvas = document.createElement('canvas');
-                const gl = canvas.getContext('webgl2') || canvas.getContext('experimental-webgl2');
-                if (!gl) {
-                    throw new Error("WGL_CONTEXT_REJECTED");
-                }
-                return true;
-            } catch (e) {
-                document.getElementById('hardware-fail').style.display = 'flex';
-                return false;
-            }
-        };
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('follower');
+        const progress = document.getElementById('progress');
+        const navbar = document.getElementById('navbar');
 
-        // 2. INITIALIZATION SEQUENCE
-        if (probeWGL()) {
-            initNexus();
-        }
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            cursor.style.transform = `translate(${x}px, ${y}px)`;
+            follower.animate({
+                transform: `translate(${x - 20}px, ${y - 20}px)`
+            }, { duration: 500, fill: "forwards" });
+        });
 
-        function initNexus() {
-            // Reveal App
-            document.getElementById('app-mount').style.opacity = '1';
-
-            // 3. SMOOTH SCROLL (LENIS)
-            const lenis = new Lenis({
-                lerp: 0.08,
-                smoothWheel: true
+        document.querySelectorAll('a, .work-card, .btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                follower.style.transform += ' scale(2.5)';
+                follower.style.background = 'rgba(255,255,255,0.05)';
+                follower.style.borderColor = 'transparent';
+                cursor.style.transform += ' scale(0.5)';
             });
-            function raf(time) {
-                lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
-            requestAnimationFrame(raf);
-
-            // 4. KINETIC CURSOR ENGINE
-            const main = document.getElementById('cursor-main');
-            const ring = document.getElementById('cursor-ring');
-            
-            window.addEventListener('mousemove', (e) => {
-                gsap.to(main, { x: e.clientX, y: e.clientY, duration: 0 });
-                gsap.to(ring, { 
-                    x: e.clientX - 20, 
-                    y: e.clientY - 20, 
-                    duration: 0.6, 
-                    ease: "power3.out" 
-                });
+            el.addEventListener('mouseleave', () => {
+                follower.style.transform = follower.style.transform.replace(' scale(2.5)', '');
+                follower.style.background = 'transparent';
+                follower.style.borderColor = 'rgba(255,255,255,0.2)';
+                cursor.style.transform = cursor.style.transform.replace(' scale(0.5)', '');
             });
+        });
 
-            // 5. GSAP SCROLL ORCHESTRATION
-            gsap.registerPlugin(ScrollTrigger);
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            progress.style.width = scrolled + "%";
 
-            // Title Fly-out
-            gsap.to(".hero-title", {
-                scale: 1.5,
-                opacity: 0,
-                filter: "blur(20px)",
-                scrollTrigger: {
-                    trigger: ".hero",
-                    start: "center center",
-                    end: "bottom top",
-                    scrub: true
-                }
+            if (window.scrollY > 100) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 50) el.classList.add('active');
             });
+        });
 
-            // Chapter Label Scans
-            gsap.utils.toArray(".chapter-label").forEach(label => {
-                gsap.from(label, {
-                    x: -20,
-                    opacity: 0,
-                    scrollTrigger: {
-                        trigger: label,
-                        start: "top 90%",
-                        toggleActions: "play none none reverse"
-                    }
-                });
+        document.querySelectorAll('.mag-btn-wrap').forEach(wrap => {
+            wrap.addEventListener('mousemove', (e) => {
+                const btn = wrap.querySelector('.btn');
+                const rect = wrap.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
             });
+            wrap.addEventListener('mouseleave', (e) => {
+                const btn = wrap.querySelector('.btn');
+                btn.style.transform = `translate(0, 0)`;
+            });
+        });
 
-            // Chapter 02: Data Stream Kinetic Movement
-            gsap.utils.toArray(".stream-item").forEach((item, i) => {
-                gsap.from(item, {
-                    x: i % 2 === 0 ? -100 : 100,
-                    opacity: 0,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 95%",
-                        end: "top 40%",
-                        scrub: true
-                    }
-                });
-            });
-
-            // Image Parallax 01
-            gsap.to(".big-img-box img", {
-                y: -60,
-                scrollTrigger: {
-                    trigger: ".big-img-box",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-
-            // Final Footer Ascension
-            gsap.from(".footer-tag", {
-                y: 100,
-                opacity: 0,
-                scrollTrigger: {
-                    trigger: ".footer-end",
-                    start: "top 80%",
-                    scrub: true
-                }
-            });
-        }
+        window.dispatchEvent(new Event('scroll'));
     </script>
 </body>
 </html>
