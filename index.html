@@ -3,290 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UXIDONE | Design Engineer</title>
+    <meta name="description" content="UXIDONE - High-performance digital architectures and precision-built ecosystem for the next generation of web interaction.">
+    <title>UXIDONE | Digital Architecture & Precision Engineering</title>
+    
+    <!-- Critical Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #8b5cf6;
             --bg: #050505;
-            --surface: #0f1115;
-            --text: #ffffff;
-            --text-muted: #888888;
+            --surface: rgba(15, 15, 15, 0.6);
+            --accent: #ffffff;
+            --accent-muted: #888888;
+            --primary: #3b82f6;
             --border: rgba(255, 255, 255, 0.08);
-            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            cursor: none;
-        }
-
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg);
-            color: var(--text);
+            color: var(--accent);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Scroll Progress --- */
-        #progress {
+        h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+        /* Animated Background Mesh */
+        .mesh-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            z-index: 2000;
-            width: 0%;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            filter: blur(100px);
+            animation: meshMove 20s infinite alternate linear;
         }
 
-        /* --- Cursor --- */
-        #cursor {
+        @keyframes meshMove {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1) translate(2%, 2%); }
+        }
+
+        /* Navigation */
+        .glass-nav {
             position: fixed;
-            width: 8px;
-            height: 8px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease-out;
-        }
-
-        #follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.4s var(--ease), background 0.3s ease;
-        }
-
-        /* --- Layout --- */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 4rem;
-        }
-
-        /* --- Navigation --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 2.5rem 0;
-            z-index: 1000;
-            transition: all 0.4s var(--ease);
-        }
-
-        nav.scrolled {
-            padding: 1.2rem 0;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
+            top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
+            padding: 1.25rem 0;
+            transition: all 0.4s var(--ease-out);
         }
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
 
-        .logo {
-            font-weight: 800;
-            font-size: 1.2rem;
-            letter-spacing: -0.5px;
-            text-decoration: none;
-            color: #fff;
-        }
+        .brand { font-weight: 700; font-size: 1.4rem; letter-spacing: 0.1em; text-transform: uppercase; }
 
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover { color: #fff; }
-
-        /* --- Hero --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: clamp(4rem, 10vw, 9rem);
-            font-weight: 800;
-            line-height: 0.85;
-            letter-spacing: -5px;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero h1 span {
-            display: block;
-            color: var(--text-muted);
-            opacity: 0.4;
-        }
-
-        .hero-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-
-        .hero-desc {
-            max-width: 450px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        /* --- Magnetic Button --- */
-        .mag-btn-wrap {
-            position: relative;
-            display: inline-block;
-        }
-
+        /* Buttons */
         .btn {
-            padding: 1.2rem 2.8rem;
-            background: #fff;
-            color: #000;
-            border-radius: 100px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 12px;
-            transition: transform 0.2s ease-out;
+            padding: 0.9rem 2.2rem;
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 100px;
+            transition: all 0.3s var(--ease-out);
+            border: 1px solid var(--accent);
         }
 
-        /* --- Bento Grid --- */
-        .work-grid {
+        .btn:hover { background: transparent; color: var(--accent); transform: translateY(-2px); }
+        
+        .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--border); }
+        .btn-outline:hover { border-color: var(--accent); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 12vw, 8.5rem);
+            font-weight: 700;
+            line-height: 0.85;
+            margin-bottom: 2.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(180deg, #fff 0%, #666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--accent-muted);
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 3.5rem;
+            font-weight: 400;
+        }
+
+        /* Grid & Cards */
+        .grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 1.5rem;
-            padding-bottom: 10rem;
+            padding: 10rem 0;
         }
 
-        .work-card {
+        .card {
+            grid-column: span 4;
             background: var(--surface);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border);
-            border-radius: 40px;
-            padding: 3rem;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.5s var(--ease);
+            padding: 3.5rem 2.5rem;
+            border-radius: 24px;
+            transition: all 0.5s var(--ease-out);
         }
 
-        .work-card:hover { 
+        .card:hover {
             border-color: rgba(255,255,255,0.2);
-            transform: translateY(-10px);
+            background: rgba(20, 20, 20, 0.8);
+            transform: translateY(-8px);
         }
 
-        .card-1 { grid-column: span 7; height: 600px; }
-        .card-2 { grid-column: span 5; height: 600px; }
-        .card-3 { grid-column: span 5; height: 500px; }
-        .card-4 { grid-column: span 7; height: 500px; }
+        .card-large { grid-column: span 8; }
 
-        .work-card .category {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: var(--primary);
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
+        .card h2 { font-size: 1.8rem; margin-bottom: 1.25rem; }
+        .card p { color: var(--accent-muted); font-size: 0.95rem; }
 
-        .work-card h3 {
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-        }
-
-        /* --- In-built Visual Assets --- */
-        .asset-container {
-            flex-grow: 1;
-            margin-top: 2rem;
-            border-radius: 20px;
-            background: rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gradient-mesh {
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, var(--primary) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, var(--secondary) 0%, transparent 50%);
-            opacity: 0.15;
-            filter: blur(60px);
-            animation: rotateMesh 20s linear infinite;
-        }
-
-        @keyframes rotateMesh {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* --- Footer --- */
-        footer {
-            padding: 10rem 0 4rem;
-            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.05));
-        }
-
-        .footer-cta h2 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            letter-spacing: -4px;
-            line-height: 0.9;
-            margin-bottom: 4rem;
-        }
-
-        .footer-bottom {
-            margin-top: 8rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* --- Animations --- */
+        /* Reveal Animations */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
-            transition: 1.2s var(--ease);
+            transition: opacity 1.2s var(--ease-out), transform 1.2s var(--ease-out);
         }
 
         .reveal.active {
@@ -294,197 +161,139 @@
             transform: translateY(0);
         }
 
+        /* Footer */
+        footer {
+            padding: 6rem 0 3rem;
+            border-top: 1px solid var(--border);
+            color: var(--accent-muted);
+            font-size: 0.75rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--accent); }
+
         @media (max-width: 1024px) {
-            .container { padding: 0 2rem; }
-            .card-1, .card-2, .card-3, .card-4 { grid-column: span 12; height: 500px; }
-            * { cursor: auto !important; }
-            #cursor, #follower { display: none; }
+            .card, .card-large { grid-column: span 12; }
+            .hero-title { font-size: 4rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="progress"></div>
-    <div id="cursor"></div>
-    <div id="follower"></div>
+    <div class="mesh-bg" aria-hidden="true"></div>
 
-    <nav id="navbar">
-        <div class="container nav-content">
-            <a href="#" class="logo">UXIDONE.</a>
-            <ul class="nav-links">
-                <li><a href="#work">Archive</a></li>
-                <li><a href="#about">Philosophy</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+    <nav class="glass-nav" id="main-nav">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="brand">UXIDONE</div>
+            <div style="display: flex; gap: 3rem; align-items: center;">
+                <div class="footer-links" style="display: flex; gap: 2rem; font-size: 0.8rem; font-weight: 500;">
+                    <a href="#about">SYSTEM</a>
+                    <a href="#">MANIFESTO</a>
+                </div>
+                <a href="#" class="btn btn-outline" style="padding: 0.6rem 1.5rem; font-size: 0.75rem; border-radius: 8px;">CONNECT</a>
+            </div>
         </div>
     </nav>
 
-    <main class="container">
+    <main>
         <header class="hero">
-            <h1 class="reveal">Digital Architecture<span>Precision-Built.</span></h1>
-            <div class="hero-footer reveal">
-                <p class="hero-desc">Solving complex problems through high-fidelity design and creative engineering. No templates, no bloat, just performance.</p>
-                <div class="mag-btn-wrap">
-                    <a href="#work" class="btn">
-                        Explore Archive <i data-lucide="arrow-down-right"></i>
-                    </a>
+            <div class="container">
+                <div style="max-width: 1000px;">
+                    <span class="reveal active" style="text-transform: uppercase; letter-spacing: 0.4em; font-size: 0.7rem; font-weight: 600; color: var(--primary); display: block; margin-bottom: 2rem;">V.2026 ARCHITECTURE</span>
+                    <h1 class="hero-title reveal active gradient-text">Digital<br>Architecture.</h1>
+                    <p class="hero-sub reveal active">
+                        We build high-fidelity digital products where technical rigor meets cinematic aesthetics. Precision-engineered for world-class performance.
+                    </p>
+                    <div class="reveal active" style="display: flex; gap: 1.5rem;">
+                        <a href="#about" class="btn">Explore Ecosystem <i data-lucide="arrow-right"></i></a>
+                        <a href="#" class="btn btn-outline">Our Philosophy</a>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <section id="work">
-            <div class="work-grid">
-                <!-- Project 1: Built-in UI Illustration -->
-                <div class="work-card card-1 reveal">
-                    <span class="category">System Design / 2026</span>
-                    <h3>The Zenith Core</h3>
-                    <p style="color: var(--text-muted);">A multi-tenant design system for enterprise-scale platforms.</p>
-                    <div class="asset-container">
-                        <div class="gradient-mesh"></div>
-                        <svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="20" y="20" width="360" height="200" rx="12" stroke="white" stroke-opacity="0.1" stroke-width="2"/>
-                            <rect x="40" y="40" width="120" height="15" rx="4" fill="white" fill-opacity="0.2"/>
-                            <rect x="40" y="70" width="320" height="130" rx="8" fill="white" fill-opacity="0.05" stroke="white" stroke-opacity="0.1"/>
-                            <circle cx="340" cy="90" r="10" fill="var(--primary)"/>
-                            <rect x="60" y="90" width="100" height="8" rx="2" fill="white" fill-opacity="0.1"/>
-                            <rect x="60" y="110" width="150" height="8" rx="2" fill="white" fill-opacity="0.1"/>
-                        </svg>
-                    </div>
-                </div>
+        <section id="about" class="container">
+            <div class="grid">
+                <article class="card card-large reveal">
+                    <div style="color: var(--primary); margin-bottom: 2rem;"><i data-lucide="component" style="width: 32px; height: 32px;"></i></div>
+                    <h2>Interface Intelligence</h2>
+                    <p style="max-width: 500px;">Advanced interaction layers built on a custom design kernel. We prioritize tactile feedback, sub-millisecond responsiveness, and visual harmony in every pixel we deploy.</p>
+                </article>
+                
+                <article class="card reveal" style="transition-delay: 0.1s;">
+                    <div style="color: var(--primary); margin-bottom: 2rem;"><i data-lucide="cpu" style="width: 32px; height: 32px;"></i></div>
+                    <h2>The Engine</h2>
+                    <p>Proprietary architecture ensuring 100% performance efficiency across global digital nodes.</p>
+                </article>
 
-                <!-- Project 2: Built-in Pattern -->
-                <div class="work-card card-2 reveal">
-                    <span class="category">Mobile / Fintech</span>
-                    <h3>Aura Pay</h3>
-                    <p style="color: var(--text-muted);">Biometric payment flow for the next generation.</p>
-                    <div class="asset-container">
-                        <div class="gradient-mesh" style="background: radial-gradient(circle, var(--secondary), transparent)"></div>
-                        <svg width="150" height="280" viewBox="0 0 150 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="5" y="5" width="140" height="270" rx="25" stroke="white" stroke-opacity="0.2" stroke-width="2"/>
-                            <circle cx="75" cy="140" r="40" stroke="var(--primary)" stroke-width="2" stroke-dasharray="10 5"/>
-                            <path d="M55 140H95" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M75 120V160" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                        </svg>
-                    </div>
-                </div>
+                <article class="card reveal">
+                    <div style="color: var(--primary); margin-bottom: 2rem;"><i data-lucide="shield-check" style="width: 32px; height: 32px;"></i></div>
+                    <h2>Security First</h2>
+                    <p>Hardened protocols integrated at the design level to protect ecosystem integrity and user privacy.</p>
+                </article>
 
-                <!-- Project 3: Data Viz SVG -->
-                <div class="work-card card-3 reveal">
-                    <span class="category">Dashboard / SaaS</span>
-                    <h3>Vortex Analytics</h3>
-                    <div class="asset-container">
-                        <svg width="300" height="150" viewBox="0 0 300 150">
-                            <path d="M10 140 L50 90 L90 110 L130 40 L170 70 L210 20 L290 50" stroke="var(--primary)" stroke-width="4" fill="none"/>
-                            <circle cx="210" cy="20" r="6" fill="white"/>
-                        </svg>
-                    </div>
-                    <h3>Insight Engine</h3>
-                    <p style="color: var(--text-muted);">Visualizing 10M+ data points in real-time.</p>
-                </div>
-
-                <!-- Project 4: Generative Art SVG -->
-                <div class="work-card card-4 reveal">
-                    <span class="category">Experiment / WebGL</span>
-                    <h3>Liquid Geometry</h3>
-                    <div class="asset-container">
-                        <div class="gradient-mesh" style="opacity: 0.3;"></div>
-                        <svg width="400" height="200" viewBox="0 0 400 200">
-                            <defs>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" style="stop-color:var(--primary);stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:var(--secondary);stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M0,100 C100,0 300,200 400,100 L400,200 L0,200 Z" fill="url(#grad1)" opacity="0.4"/>
-                            <path d="M0,120 C150,50 250,150 400,120 L400,200 L0,200 Z" fill="url(#grad1)" opacity="0.6"/>
-                        </svg>
-                    </div>
-                    <h3>Motion Lab</h3>
-                    <p style="color: var(--text-muted);">Exploring the physics of digital interaction.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="footer-cta">
-                <h2 class="reveal">Let's create the<br>unconventional.</h2>
-                <div class="mag-btn-wrap reveal">
-                    <a href="mailto:uxidone@gmail.com" class="btn">Launch Project <i data-lucide="rocket"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div>&copy; 2026 UXIDONE/ UXIDONE SYSTEMS</div>
-                <div style="display: flex; gap: 2rem;">
-                    <a href="#" style="color: inherit; text-decoration: none;">GitHub</a>
-                    <a href="#" style="color: inherit; text-decoration: none;">LinkedIn</a>
-                    <a href="#" style="color: inherit; text-decoration: none;">Twitter</a>
-                </div>
+                <article class="card card-large reveal" style="transition-delay: 0.1s;">
+                    <div style="color: var(--primary); margin-bottom: 2rem;"><i data-lucide="globe" style="width: 32px; height: 32px;"></i></div>
+                    <h2>Global Scaling</h2>
+                    <p style="max-width: 500px;">Adaptive infrastructure that scales with your growth. From MVP to enterprise-grade deployment, our systems remain lightweight and bulletproof.</p>
+                </article>
             </div>
         </section>
     </main>
 
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p style="letter-spacing: 0.1em; font-weight: 600; color: var(--accent);">UXIDONE // ARCHITECTING THE FUTURE</p>
+                    <p style="margin-top: 0.5rem;">EST. 2026. ALL RIGHTS RESERVED.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" rel="noopener">GITHUB</a>
+                    <a href="#" rel="noopener">TWITTER</a>
+                    <a href="#" rel="noopener">LINKEDIN</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Optimized Script Loading -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            // Icons
+            if (window.lucide) lucide.createIcons();
 
-        const cursor = document.getElementById('cursor');
-        const follower = document.getElementById('follower');
-        const progress = document.getElementById('progress');
-        const navbar = document.getElementById('navbar');
+            // Navbar Effect
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    nav.style.padding = "0.8rem 0";
+                    nav.style.background = "rgba(5, 5, 5, 0.9)";
+                } else {
+                    nav.style.padding = "1.25rem 0";
+                    nav.style.background = "rgba(5, 5, 5, 0.7)";
+                }
+            }, { passive: true });
 
-        document.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            cursor.style.transform = `translate(${x}px, ${y}px)`;
-            follower.animate({
-                transform: `translate(${x - 20}px, ${y - 20}px)`
-            }, { duration: 500, fill: "forwards" });
+            // Staggered Reveal Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         });
-
-        document.querySelectorAll('a, .work-card, .btn').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                follower.style.transform += ' scale(2.5)';
-                follower.style.background = 'rgba(255,255,255,0.05)';
-                follower.style.borderColor = 'transparent';
-                cursor.style.transform += ' scale(0.5)';
-            });
-            el.addEventListener('mouseleave', () => {
-                follower.style.transform = follower.style.transform.replace(' scale(2.5)', '');
-                follower.style.background = 'transparent';
-                follower.style.borderColor = 'rgba(255,255,255,0.2)';
-                cursor.style.transform = cursor.style.transform.replace(' scale(0.5)', '');
-            });
-        });
-
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progress.style.width = scrolled + "%";
-
-            if (window.scrollY > 100) navbar.classList.add('scrolled');
-            else navbar.classList.remove('scrolled');
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 50) el.classList.add('active');
-            });
-        });
-
-        document.querySelectorAll('.mag-btn-wrap').forEach(wrap => {
-            wrap.addEventListener('mousemove', (e) => {
-                const btn = wrap.querySelector('.btn');
-                const rect = wrap.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
-            });
-            wrap.addEventListener('mouseleave', (e) => {
-                const btn = wrap.querySelector('.btn');
-                btn.style.transform = `translate(0, 0)`;
-            });
-        });
-
-        window.dispatchEvent(new Event('scroll'));
     </script>
 </body>
 </html>
