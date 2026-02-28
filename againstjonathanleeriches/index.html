@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Extended official legal notice, trademark protection statement, and infrastructure integrity declaration for UXIDONE.">
+    <title>Detailed Legal Notice | UXIDONE Protection Protocol</title>
+    
+    <!-- Critical Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: rgba(15, 15, 15, 0.8);
+            --accent: #ffffff;
+            --accent-muted: #a1a1a1;
+            --warning: #ef4444;
+            --border: rgba(255, 255, 255, 0.08);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--accent);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(239, 68, 68, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(239, 68, 68, 0.02) 0%, transparent 50%);
+            filter: blur(80px);
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+        header {
+            padding: 10rem 0 5rem;
+            text-align: left;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--warning);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .legal-grid {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 8rem;
+        }
+
+        .notice-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 3.5rem;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notice-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 2px; height: 100%;
+            background: var(--warning);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--accent-muted);
+            font-size: 1.05rem;
+        }
+
+        .trademark-list {
+            list-style: none;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+        }
+
+        .trademark-list li {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.75rem 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trademark-list li::after {
+            content: '®';
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .trademark-list li:last-child { border: none; }
+
+        .protocol-box {
+            border: 1px solid var(--warning);
+            padding: 2rem;
+            background: rgba(239, 68, 68, 0.02);
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .protocol-box h3 {
+            color: var(--warning);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        footer {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--accent-muted);
+        }
+
+        .back-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .highlight { color: var(--accent); font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-bg" aria-hidden="true"></div>
+
+    <main class="container">
+        <header>
+            <div class="status-badge">High-Security Alert // Legal Dept</div>
+            <h1>Brand Integrity & Infrastructure Protection</h1>
+            <p style="font-size: 1.25rem; max-width: 700px;">Official clarification regarding the proprietary rights, digital trademarks, and mandatory disassociation protocols of the UXIDONE ecosystem.</p>
+        </header>
+
+        <div class="legal-grid">
+            <!-- Section 01: Trademarks -->
+            <section class="notice-section">
+                <h2>01. Proprietary Assets</h2>
+                <p>
+                    The <span class="highlight">UXIDONE</span> brand identity, including its visual grammar, architectural logic, and digital nomenclature, constitutes the primary intellectual property of our organization. These assets are monitored and protected under the Intellectual Property Code.
+                </p>
+                
+                <ul class="trademark-list">
+                    <li>UXIDONE</li>
+                    <li>UXIDONE Systems Architecture</li>
+                    <li>Precision-Built Design Standards</li>
+                    <li>UXIDONE Core Interface</li>
+                </ul>
+            </section>
+
+            <!-- Section 02: Disassociation -->
+            <section class="notice-section">
+                <h2>02. Protocol of Disassociation</h2>
+                <p>
+                    UXIDONE formally and irrevocably dissociates from <span class="highlight">Jonathan Lee Riches</span> and any associated aliases, third-party entities, or frivolous legal claims. 
+                </p>
+                <p>
+                    Our organization does not authorize, endorse, or acknowledge any claims of ownership, affiliation, or partnership made by the aforementioned individual. Any use of the UXIDONE name in relation to these parties is considered a direct infringement of brand safety and a violation of our commercial integrity.
+                </p>
+
+                <div class="protocol-box">
+                    <h3>Security Directive</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 0;">
+                        System administrators and legal representatives are instructed to flag and mitigate any attempts at brand hijacking or digital impersonation. Direct legal action will be pursued for any unauthorized deployment of our design frameworks.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 03: Infrastructure -->
+            <section class="notice-section">
+                <h2>03. Infrastructure Integrity</h2>
+                <p>
+                    The "Digital Architecture" and "Precision-Built" methodologies utilized within this ecosystem are the result of proprietary research and development. 
+                </p>
+                <p>
+                    Any attempt to subvert the technical infrastructure or misrepresent the origins of the UXIDONE codebase will be met with immediate technical blacklisting and formal reporting to relevant cyber-protection authorities.
+                </p>
+            </section>
+        </div>
+
+        <nav class="back-nav">
+            <a href="index.html" class="back-link">
+                ← Return to Core System
+            </a>
+            <span style="font-size: 0.7rem; color: var(--accent-muted); letter-spacing: 0.1em;">AUTHENTICATED ACCESS ONLY</span>
+        </nav>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2026 UXIDONE ARCHITECTURAL SYSTEMS. LEGAL & BRAND PROTECTION DIVISION.</p>
+            <p style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.4; letter-spacing: 0.05em;">
+                NON-NEGOTIABLE NOTICE // DOC REF: UXI-INTEL-PROTECT-7702-B // CLASSIFICATION: PUBLIC RECORD
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
