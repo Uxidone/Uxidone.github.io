@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Zero-Affiliation Policy for UXIDONE and UXIDONE SYSTEMS.">
+    <title>Zero-Affiliation Policy | UXIDONE Protocol</title>
+    
+    <!-- Critical Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: rgba(15, 15, 15, 0.8);
+            --accent: #ffffff;
+            --accent-muted: #a1a1a1;
+            --warning: #ef4444;
+            --border: rgba(255, 255, 255, 0.08);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--accent);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 100% 0%, rgba(239, 68, 68, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+            filter: blur(80px);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+
+        header {
+            padding: 8rem 0 4rem;
+            text-align: left;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--accent);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .policy-content {
+            margin-bottom: 8rem;
+        }
+
+        .policy-section {
+            margin-bottom: 4rem;
+            padding-bottom: 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .policy-section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--accent-muted);
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--accent-muted);
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: rgba(239, 68, 68, 0.05);
+            border-left: 3px solid var(--warning);
+            padding: 2.5rem;
+            margin: 3rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box h4 {
+            color: var(--warning);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .system-link {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s var(--ease);
+        }
+
+        .system-link:hover {
+            border-bottom-color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .nav-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-muted);
+        }
+
+        .bullet-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--warning);
+        }
+
+        footer {
+            text-align: center;
+            padding: 4rem 0;
+            font-size: 0.7rem;
+            color: var(--accent-muted);
+            opacity: 0.6;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+
+        .info-card {
+            background: rgba(255,255,255,0.02);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .info-card h4 {
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-bg" aria-hidden="true"></div>
+
+    <main class="container">
+        <header>
+            <div class="status-badge">Public Directive // 0.0.0</div>
+            <h1>Zero-Affiliation Policy</h1>
+            <p>Formal declaration regarding the isolation of UXIDONE architecture and the prohibition of unauthorized external entities.</p>
+        </header>
+
+        <div class="policy-content">
+            <!-- Section 01 -->
+            <section class="policy-section">
+                <h2>Scope</h2>
+                <h3>Core Mandate</h3>
+                <p>
+                    This policy establishes the definitive boundaries of the <a href="https://uxidonesystems.github.io" class="system-link">UXIDONE SYSTEMS</a> ecosystem and the <a href="https://uxidone.github.io" class="system-link">UXIDONE</a> root architecture. It serves as a public record that UXIDONE operates as a closed architectural sovereign, independent of unvetted third-party influencers, products, or individuals.
+                </p>
+                <p>
+                    We operate with total architectural independence. This ensures that every line of code, design kernel, and system protocol is maintained within our secure, monitored perimeter without external interference.
+                </p>
+            </section>
+
+            <!-- Section 02 -->
+            <section class="policy-section">
+                <h2>Affiliation Restrictions</h2>
+                <h3>Strict Non-Association</h3>
+                <p>
+                    UXIDONE does not maintain, recognize, or authorize any "affiliate" programs, referral networks, or partner-led distributions unless explicitly signed, sealed, and published via our primary digital nodes.
+                </p>
+                <div class="warning-box">
+                    <h4>Unauthorized Product Prohibition</h4>
+                    <p style="margin-bottom: 0;">
+                        Any product, software, or digital asset not directly bearing the authenticated signature of <a href="https://uxidonesystems.github.io" class="system-link">UXIDONE SYSTEMS</a> or originating from <a href="https://uxidone.github.io" class="system-link">uxidone.github.io</a> is strictly forbidden from claiming any technical, financial, or strategic association with our brand.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 03 -->
+            <section class="policy-section">
+                <h2>Verification Architecture</h2>
+                <h3>Authenticated Registry</h3>
+                <p>To prevent deception, UXIDONE maintains a single source of truth for all authorized assets. If an entity is not listed within our authenticated registry, it is deemed non-affiliated.</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>Official Domains</h4>
+                        <p style="font-size: 0.9rem;">
+                            <a href="https://uxidonesystems.github.io" class="system-link">uxidonesystems.github.io</a><br>
+                            <a href="https://uxidone.github.io" class="system-link">uxidone.github.io</a>
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h4>UXIDONE SIGNATURE PROTOCOL</h4>
+                        <p style="font-size: 0.9rem;">All official releases contain a cryptographic hash for origin verification accessible via our root nodes under the UXIDONE SIGNATURE PROTOCOL.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 04 -->
+            <section class="policy-section">
+                <h2>Prohibited Activities</h2>
+                <h3>Enforcement Criteria</h3>
+                <p>The following actions are classified as severe breaches of this policy:</p>
+                <ul class="bullet-list">
+                    <li>The use of "UXIDONE" or "UXIDONE SYSTEMS" in marketing materials for unapproved products.</li>
+                    <li>Misrepresentation of professional or individual ties to the UXIDONE internal team.</li>
+                    <li>Distribution of derivative works that imply an official partnership where none exists.</li>
+                    <li>Attempting to wrap UXIDONE logic within third-party "shells" without explicit licensing.</li>
+                    <li>Claiming "Compatibility" or "Integration" status without a verified technical audit from our core team.</li>
+                </ul>
+            </section>
+
+            <!-- Section 05 -->
+            <section class="policy-section">
+                <h2>Violation Reporting</h2>
+                <h3>Integrity Maintenance</h3>
+                <p>
+                    We actively monitor global repositories and social platforms for brand impersonation. If you encounter a product or individual falsely claiming affiliation with <a href="https://uxidonesystems.github.io" class="system-link">UXIDONE SYSTEMS</a> or the <a href="https://uxidone.github.io" class="system-link">UXIDONE</a> brand, please report it immediately to our security node.
+                </p>
+                <p>
+                    Reports are treated with total confidentiality and assist in the rapid deployment of legal cease-and-desist protocols.
+                </p>
+            </section>
+
+            <!-- Section 06 -->
+            <section class="policy-section">
+                <h2>Legal Recourse</h2>
+                <h3>System Defense</h3>
+                <p>
+                    UXIDONE reserves the right to deploy automated technical countermeasures and pursue high-court legal proceedings against any entity that violates this isolation protocol. We maintain a policy of zero-tolerance regarding brand dilution and architectural contamination.
+                </p>
+            </section>
+        </div>
+
+        <div class="nav-footer">
+            <a href="index.html" class="back-link">← Back to Legal Notice</a>
+            <span style="font-size: 0.6rem; letter-spacing: 0.1em; opacity: 0.5;">DOCUMENT VERSION 2026.5</span>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 UXIDONE ARCHITECTURAL SYSTEMS. ALL RIGHTS RESERVED.
+    </footer>
+
+</body>
+</html>
