@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official trademark protection, non-affiliation notice, and infrastructure integrity declaration for the UXIDONE ecosystem.">
+    <title>Legal Notice | UXIDONE Protection Protocol</title>
+    
+    <!-- Critical Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: rgba(15, 15, 15, 0.8);
+            --accent: #ffffff;
+            --accent-muted: #a1a1a1;
+            --warning: #ef4444;
+            --border: rgba(255, 255, 255, 0.08);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--accent);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .brand { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 0% 0%, rgba(239, 68, 68, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(239, 68, 68, 0.02) 0%, transparent 50%);
+            filter: blur(80px);
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+        header {
+            padding: 10rem 0 5rem;
+            text-align: left;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--warning);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--warning);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            line-height: 1;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .legal-grid {
+            display: grid;
+            gap: 3rem;
+            margin-bottom: 8rem;
+        }
+
+        .notice-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 3.5rem;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notice-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 2px; height: 100%;
+            background: var(--warning);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--accent-muted);
+            font-size: 1.05rem;
+        }
+
+        .trademark-list {
+            list-style: none;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+        }
+
+        .trademark-list li {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 0.75rem 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trademark-list li::after {
+            content: '®';
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
+        .trademark-list li:last-child { border: none; }
+
+        .protocol-box {
+            border: 1px solid var(--warning);
+            padding: 2rem;
+            background: rgba(239, 68, 68, 0.02);
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+
+        .protocol-box h3 {
+            color: var(--warning);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .clause-item {
+            padding-left: 1.5rem;
+            border-left: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+
+        footer {
+            padding: 6rem 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--accent-muted);
+        }
+
+        .back-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .highlight { color: var(--accent); font-weight: 600; }
+        
+        /* High-contrast white links for UXIDONE SYSTEMS */
+        .system-link {
+            color: var(--accent) !important; /* Explicit white */
+            font-weight: 700;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.3s var(--ease);
+        }
+
+        .system-link:hover {
+            border-bottom-color: var(--accent);
+            opacity: 0.7;
+        }
+
+        .policy-link {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: rgba(255, 255, 255, 0.3);
+            transition: text-decoration-color 0.3s var(--ease);
+        }
+
+        .policy-link:hover {
+            text-decoration-color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-bg" aria-hidden="true"></div>
+
+    <main class="container">
+        <header>
+            <div class="status-badge">System Protocol // Legal Security</div>
+            <h1>Brand Integrity & Global Rights Notice</h1>
+            <p style="font-size: 1.25rem; max-width: 700px;">Mandatory clarification regarding proprietary architecture, trademark sovereignty, and the strict prohibition of unauthorized third-party affiliations.</p>
+        </header>
+
+        <div class="legal-grid">
+            <!-- Section 01: Core IP -->
+            <section class="notice-section">
+                <h2>01. Proprietary Sovereign Rights</h2>
+                <div class="clause-item">
+                    <h3>1.1 Trademark Sovereignty</h3>
+                    <p>
+                        The trademarks <span class="highlight">UXIDONE</span> and <a href="https://uxidonesystems.github.io" class="system-link">UXIDONE SYSTEMS</a>, including all visual identities, architectural frameworks, and digital methodologies, are the exclusive property of this organization.
+                    </p>
+                    <ul class="trademark-list">
+                        <li>UXIDONE</li>
+                        <li><a href="https://uxidonesystems.github.io" class="system-link" style="font-size: inherit;">UXIDONE SYSTEMS</a></li>
+                        <li>UXIDONE Systems Architecture</li>
+                        <li>UXIDONE Design Kernels</li>
+                    </ul>
+                </div>
+                
+                <div class="clause-item">
+                    <h3>1.2 Prohibited Exploitation</h3>
+                    <p>
+                        Any use of the UXIDONE nomenclature or its stylistic identifiers by non-authenticated entities is strictly prohibited. This includes, but is not limited to, unauthorized "wrappers," derivative software, or misrepresentation of brand origin.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 02: Affiliation Protocol -->
+            <section class="notice-section">
+                <h2>02. Protocol of Zero-Affiliation</h2>
+                <div class="clause-item">
+                    <h3>2.1 Unauthorised Third-Party Disassociation</h3>
+                    <p>
+                        UXIDONE formally maintains a <a href="/zeroaffiliationpolicy" class="policy-link">Zero-Affiliation Policy</a> regarding all external products, services, or individuals not explicitly listed in our authenticated registry. We do not endorse, recognize, or authorize any third-party claims of partnership or ownership.
+                    </p>
+                </div>
+
+                <div class="clause-item">
+                    <h3>2.2 Non-Affiliated Product Prohibition</h3>
+                    <p>
+                        Products, platforms, or services that are not direct subsidiaries or authenticated affiliates of <span class="highlight">UXIDONE</span> and <a href="https://uxidonesystems.github.io" class="system-link">UXIDONE SYSTEMS</a> are strictly forbidden from utilizing our brand identity, logic, or assets. 
+                    </p>
+                </div>
+
+                <div class="protocol-box">
+                    <h3>Security Directive</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 0;">
+                        Any attempt by unauthorized entities to claim association with the UXIDONE ecosystem will result in immediate legal escalation and technical blacklisting within our global nodes.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 03: Infrastructure Defense -->
+            <section class="notice-section">
+                <h2>03. Architectural Integrity</h2>
+                <div class="clause-item">
+                    <h3>3.1 Digital Sovereignty</h3>
+                    <p>
+                        Our "Digital Architecture" and "Precision-Built" methodologies are protected under international trade secret and intellectual property laws. We do not grant permission for these frameworks to be repurposed by non-vetted organizations.
+                    </p>
+                </div>
+
+                <div class="clause-item">
+                    <h3>3.2 Jurisdictional Enforcement</h3>
+                    <p>
+                        Brand integrity is defended via high-fidelity technical locks and global legal frameworks. We reserve the right to prosecute any infringement that compromises the trust and security of our proprietary systems.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 04: Continuous Notice -->
+            <section class="notice-section">
+                <h2>04. Perpetual Enforcement</h2>
+                <p>
+                    This notice constitutes a standing legal directive. The absence of a specific cease-and-desist order does not authorize any entity to infringe upon our intellectual property. UXIDONE's silence on any unauthorized use shall never be construed as consent or a waiver of rights.
+                </p>
+            </section>
+        </div>
+
+        <nav class="back-nav">
+            <a href="index.html" class="back-link">
+                ← Return to Core System
+            </a>
+            <span style="font-size: 0.7rem; color: var(--accent-muted); letter-spacing: 0.1em;">ENCRYPTED AUTHENTICATION ACTIVE</span>
+        </nav>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2026 UXIDONE ARCHITECTURAL SYSTEMS. LEGAL & BRAND PROTECTION DIVISION.</p>
+            <p style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.4; letter-spacing: 0.05em;">
+                OFFICIAL NOTICE // DOC ID: UXI-IP-PROTECT-9912 // CLASS: LEGAL PUBLIC RECORD
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
